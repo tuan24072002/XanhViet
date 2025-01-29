@@ -4,8 +4,8 @@ class HttpService {
   static instance = axios.create({
     baseURL:
       import.meta.env.MODE === "development"
-        ? import.meta.env.VITE_APP_baseApiURL
-        : import.meta.env.VITE_APP_baseApiURLProd,
+        ? "http://localhost:1234/v1"
+        : "v1",
     timeout: 180000,
     headers: {
       "Content-Type": "application/json;charset=utf-8",

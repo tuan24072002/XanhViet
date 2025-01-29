@@ -15,6 +15,7 @@ app.use(cors({
 }));
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
+app.disable("etag");
 app.use('/v1/app', appRoute);
 const port = process.env.PORT || 1234;
 const __dirname = path.resolve();
