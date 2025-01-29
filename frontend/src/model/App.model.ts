@@ -9,6 +9,13 @@ class AppModel {
   textDescColor: string;
   borderColor: string;
   codeSecurity: string;
+  products: {
+    id: string;
+    name: string;
+    description: string;
+    price: string;
+    imageSrc: string;
+  }[];
   constructor(
     id: string,
     logo: string,
@@ -19,7 +26,14 @@ class AppModel {
     textColor: string,
     textDescColor: string,
     borderColor: string,
-    codeSecurity: string
+    codeSecurity: string,
+    products: {
+      id: string;
+      name: string;
+      description: string;
+      price: string;
+      imageSrc: string;
+    }[]
   ) {
     this.id = id;
     this.logo = logo;
@@ -31,6 +45,7 @@ class AppModel {
     this.textDescColor = textDescColor;
     this.borderColor = borderColor;
     this.codeSecurity = codeSecurity;
+    this.products = products;
   }
   static initial() {
     return {
@@ -44,6 +59,7 @@ class AppModel {
       textDescColor: "",
       borderColor: "",
       codeSecurity: "",
+      products: [],
     };
   }
 }

@@ -1,5 +1,22 @@
 import mongoose from "mongoose";
-
+const productSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: String,
+        required: true,
+    },
+    imageSrc: {
+        type: String,
+        required: true,
+    }
+});
 const appSchema = new mongoose.Schema(
     {
         logo: {
@@ -44,7 +61,8 @@ const appSchema = new mongoose.Schema(
         },
         codeSecurity: {
             type: String,
-        }
+        },
+        products: [productSchema]
     },
     {
         timestamps: true

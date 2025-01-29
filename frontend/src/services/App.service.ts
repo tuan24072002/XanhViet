@@ -17,6 +17,7 @@ export const AppService = {
         textDescColor: element.textDescColor,
         borderColor: element.borderColor,
         codeSecurity: element.codeSecurity,
+        products: element.products,
       });
     }
     return list;
@@ -33,6 +34,7 @@ export const AppService = {
       textDescColor: data.textDescColor,
       borderColor: data.borderColor,
       codeSecurity: data.codeSecurity,
+      products: data.products,
     };
     return item;
   },
@@ -61,6 +63,10 @@ export const AppService = {
   },
   async initSetting(data: any) {
     const response = await HttpService.doPostRequest(`/app/init`, data);
+    return parseCommonHttpResult(response);
+  },
+  async uploadLogo(data: any) {
+    const response = await HttpService.doPostRequest(`/app/upload-logo`, data);
     return parseCommonHttpResult(response);
   },
 };

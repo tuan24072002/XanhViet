@@ -52,7 +52,10 @@ export const checkCode: any = commonCreateAsyncThunk({
   type: "app/checkCode",
   action: AppService.checkCode,
 });
-
+export const uploadLogo: any = commonCreateAsyncThunk({
+  type: "app/uploadLogo",
+  action: AppService.uploadLogo,
+});
 export const appSlice = createSlice({
   name: "app",
   initialState,
@@ -152,6 +155,18 @@ export const appSlice = createSlice({
         state.statusAction = "loading";
       })
       .addCase(changeSetting.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusAction = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(uploadLogo.fulfilled, (state) => {
+        // state.action = "VIE";
+        state.statusAction = "completed";
+      })
+      .addCase(uploadLogo.pending, (state) => {
+        state.statusAction = "loading";
+      })
+      .addCase(uploadLogo.rejected, (state, action) => {
         const error = Object(action.payload);
         state.statusAction = "failed";
         state.error = errorMessage(error);

@@ -1,11 +1,16 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { products } from "@/data/mockData"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Autoplay } from 'swiper/modules';
+import { useAppSelector } from "@/app/hooks";
 const Product = () => {
-    const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null)
-    const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null)
+    const appState = useAppSelector(state => state.app);
+    const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
+    const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
+    const [products, setProducts] = useState(appState.item.products);
+    useEffect(() => {
+        setProducts(appState.item.products);
+    }, [appState.item.products])
     return (
         <div className="flex flex-col h-full">
             <div className="flex items-center justify-center w-full h-30">

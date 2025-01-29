@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SettingGeneral from "@/components/admin/SettingGeneral";
 import { AppModel } from "@/model/App.model";
+import SettingProduct from "@/components/admin/SettingProduct";
 
 type AdminProps = {
     codeSecurity: string
@@ -72,7 +73,16 @@ const Admin = () => {
             return errors;
         },
         onSubmit: (data) => {
-            dispatch(changeSetting(data))
+            const payload = {
+                backgroundColor: data.backgroundColor,
+                textHeaderColor: data.textHeaderColor,
+                highlightColor: data.highlightColor,
+                textTitleColor: data.textTitleColor,
+                textColor: data.textColor,
+                textDescColor: data.textDescColor,
+                borderColor: data.borderColor,
+            }
+            dispatch(changeSetting(payload))
             setIsApply(true);
         }
     });
@@ -102,8 +112,8 @@ const Admin = () => {
     }
     const handleInitial = async () => {
         await dispatch(postInit());
-        formik.resetForm();
     }
+
     return (
         !appState.adminVerify ?
             <div className="flex items-center justify-center h-screen w-screen">
@@ -152,12 +162,10 @@ const Admin = () => {
                                 <TabsTrigger value="story" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Câu chuyện</TabsTrigger>
                             </TabsList>
                             <TabsContent value="general" asChild>
-                                <SettingGeneral formik={formikSetting} />
+                                <SettingGeneral formik={formikSetting} setIsApply={setIsApply} />
                             </TabsContent>
                             <TabsContent value="product" asChild>
-                                <div className="size-full p-2">
-                                    Cài đặt sản phẩm
-                                </div>
+                                <SettingProduct />
                             </TabsContent>
                             <TabsContent value="story" asChild>
                                 <div className="size-full p-2">
