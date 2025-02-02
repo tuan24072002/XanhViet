@@ -10,12 +10,14 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useDropzone } from "react-dropzone"
+import { cn } from "@/lib/utils";
 const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
     isOpenDialog: boolean,
     setIsOpenDialog: (e: boolean) => void,
 }) => {
     const dispatch = useAppDispatch();
     const appState = useAppSelector(state => state.app);
+    const disabledInput = !["INS", "UPD"].includes(appState.action)
     const onDrop = useCallback((acceptedFiles: any) => {
         acceptedFiles.forEach((file: File) => {
             const reader = new FileReader();
@@ -116,6 +118,7 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                     id="name"
                                     value={formik.values.name}
                                     onChange={(e) => formik.setFieldValue('name', e.target.value)}
+                                    disabled={disabledInput}
                                     className="focus-visible:border-highlight"
                                     placeholder="Nhập tên sản phẩm"
                                 />
@@ -128,6 +131,7 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                     id="price"
                                     value={formik.values.price}
                                     onChange={(e) => formik.setFieldValue('price', e.target.value)}
+                                    disabled={disabledInput}
                                     className="focus-visible:border-highlight"
                                     placeholder="Nhập giá sản phẩm"
                                 />
@@ -141,32 +145,39 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                 rows={4}
                                 value={formik.values.description}
                                 onChange={(e) => formik.setFieldValue('description', e.target.value)}
+                                disabled={disabledInput}
                                 className="focus-visible:border-highlight outline-none"
                                 placeholder="Nhập mô tả sản phẩm"
                             />
                         </div>
-                        <div className="text-sm w-full flex flex-col gap-2">
+                        <div className={cn("text-sm w-full flex flex-col gap-2")}>
                             <Label className="text-text">Hình ảnh sản phẩm</Label>
-                            <label htmlFor="file" className="w-full text-center col-span-8"  {...getRootProps()}>
-                                {
-                                    isDragActive ? <div
-                                        className="px-6 py-8 border-2 h-full max-h-[152px] border-highlight border-dashed rounded-md cursor-pointer flex flex-col justify-center items-center">
-                                        <CloudUpload className="size-8 text-text" />
-                                        <p className="text-sm text-highlight mt-2">Thả hình ảnh vào đây</p>
-                                        <em className="text-xs text-text mt-2">(Chỉ chấp nhận tệp .jpg .png .gif)</em>
-                                    </div> : formik.values.imageSrc
-                                        ? <div className="p-2 border-2 h-[152px] border-highlight border-dashed rounded-md cursor-pointer flex flex-col justify-center items-center">
-                                            <img src={formik.values.imageSrc} alt="Image Product" className="size-full object-contain" />
-                                        </div>
-                                        : <div
+                            <div className={disabledInput ? 'cursor-not-allowed' : ''}
+                                style={{
+                                    cursor: disabledInput ? 'not-allowed!important' : 'pointer'
+                                }}
+                            >
+                                <label htmlFor="file" className={cn(`w-full text-center col-span-8`, disabledInput ? 'cursor-not-allowed' : '')}  {...getRootProps()}>
+                                    {
+                                        isDragActive ? <div
                                             className="px-6 py-8 border-2 h-full max-h-[152px] border-highlight border-dashed rounded-md cursor-pointer flex flex-col justify-center items-center">
                                             <CloudUpload className="size-8 text-text" />
-                                            <p className="text-sm text-text mt-2">Kéo hình ảnh vào đây, hoặc click để chọn hình ảnh</p>
+                                            <p className="text-sm text-highlight mt-2">Thả hình ảnh vào đây</p>
                                             <em className="text-xs text-text mt-2">(Chỉ chấp nhận tệp .jpg .png .gif)</em>
-                                        </div>
-                                }
-                                <input {...getInputProps} hidden id="file" type="file" value={''} onChange={handleChangeImage} />
-                            </label>
+                                        </div> : formik.values.imageSrc
+                                            ? <div className={cn("p-2 border-2 h-[152px] border-highlight border-dashed rounded-md cursor-pointer flex flex-col justify-center items-center", disabledInput ? 'cursor-not-allowed' : '')}>
+                                                <img src={formik.values.imageSrc} alt="Image Product" className={cn("size-full object-contain", disabledInput ? 'cursor-not-allowed' : '')} />
+                                            </div>
+                                            : <div
+                                                className="px-6 py-8 border-2 h-full max-h-[152px] border-highlight border-dashed rounded-md cursor-pointer flex flex-col justify-center items-center">
+                                                <CloudUpload className="size-8 text-text" />
+                                                <p className="text-sm text-text mt-2">Kéo hình ảnh vào đây, hoặc click để chọn hình ảnh</p>
+                                                <em className="text-xs text-text mt-2">(Chỉ chấp nhận tệp .jpg .png .gif)</em>
+                                            </div>
+                                    }
+                                    <input {...getInputProps} hidden id="file" type="file" value={''} onChange={handleChangeImage} disabled={disabledInput} />
+                                </label>
+                            </div>
                         </div>
                     </div>
                 } />
