@@ -1,4 +1,4 @@
-import { AppModel } from "@/model/App.model";
+import { AppModel, ProductModel } from "@/model/App.model";
 import { HttpService } from "./http/HttpService";
 import { parseCommonHttpResult } from "./http/parseCommonHttpResult";
 export const AppService = {
@@ -17,7 +17,28 @@ export const AppService = {
         textDescColor: element.textDescColor,
         borderColor: element.borderColor,
         codeSecurity: element.codeSecurity,
-        products: element.products,
+        products: element.products.map((product: ProductModel) => ({
+          _id: product._id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          imageSrc: product.imageSrc,
+        })),
+        stories: element.stories,
+      });
+    }
+    return list;
+  },
+  listProductFromJson(data: any) {
+    const list: ProductModel[] = [];
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      list.push({
+        _id: element._id,
+        name: element.name,
+        description: element.description,
+        price: element.price,
+        imageSrc: element.imageSrc,
       });
     }
     return list;
@@ -34,7 +55,14 @@ export const AppService = {
       textDescColor: data.textDescColor,
       borderColor: data.borderColor,
       codeSecurity: data.codeSecurity,
-      products: data.products,
+      products: data.products.map((product: ProductModel) => ({
+        _id: product._id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        imageSrc: product.imageSrc,
+      })),
+      stories: data.stories,
     };
     return item;
   },
@@ -67,6 +95,35 @@ export const AppService = {
   },
   async uploadLogo(data: any) {
     const response = await HttpService.doPostRequest(`/app/upload-logo`, data);
+    return parseCommonHttpResult(response);
+  },
+  async getProducts(data: any) {
+    const response = await HttpService.doGetRequest(`/app/get-product`, data);
+    return parseCommonHttpResult(response);
+  },
+  async createProduct(data: any) {
+    const response = await HttpService.doPostRequest(
+      `/app/create-product`,
+      data
+    );
+    return parseCommonHttpResult(response);
+  },
+  async updateProduct(data: any) {
+    const response = await HttpService.doPostRequest(
+      `/app/update-product`,
+      data
+    );
+    return parseCommonHttpResult(response);
+  },
+  async deleteProduct(data: any) {
+    const response = await HttpService.doDeleteRequest(
+      `/app/delete-product/${data._id}`,
+      data
+    );
+    return parseCommonHttpResult(response);
+  },
+  async updateStory(data: any) {
+    const response = await HttpService.doPostRequest(`/app/update-story`, data);
     return parseCommonHttpResult(response);
   },
 };

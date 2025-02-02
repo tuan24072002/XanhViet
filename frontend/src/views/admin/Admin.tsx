@@ -9,15 +9,15 @@ import {
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { applySetting, changeSetting, checkCode, postInit, resetActionStateCodeVerify, setAdminVerify } from "@/slice/app.slice";
+import { changeSetting, checkCode, resetActionStateCodeVerify, setAdminVerify } from "@/slice/app.slice";
 import { completed, failed, processing } from "@/utils/alert";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SettingGeneral from "@/components/admin/SettingGeneral";
 import { AppModel } from "@/model/App.model";
 import SettingProduct from "@/components/admin/SettingProduct";
+import SettingStory from "@/components/admin/SettingStory";
 
 type AdminProps = {
     codeSecurity: string
@@ -107,12 +107,6 @@ const Admin = () => {
             formik.handleSubmit();
         }
     }, [formik.values.codeSecurity])
-    const handleApply = async () => {
-        await dispatch(applySetting());
-    }
-    const handleInitial = async () => {
-        await dispatch(postInit());
-    }
 
     return (
         !appState.adminVerify ?
@@ -150,40 +144,28 @@ const Admin = () => {
                             <h2 className="text-2xl font-semibold text-textTitle pl-4">Trang admin</h2>
                         </div>
                         <X className="text-2xl cursor-pointer text-highlight" onClick={() => {
-                            dispatch(setAdminVerify(false))
                             navigate('/')
+                            dispatch(setAdminVerify(false))
                         }} />
                     </div>
                     <div className="flex-1 overflow-hidden">
-                        <Tabs defaultValue="general" className="w-full h-full p-2">
+                        <Tabs defaultValue="general" className="w-full h-full p-2 relative">
                             <TabsList className="w-full justify-start gap-2 h-16 bg-white">
                                 <TabsTrigger value="general" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Cài đặt chung</TabsTrigger>
                                 <TabsTrigger value="product" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Sản phẩm</TabsTrigger>
                                 <TabsTrigger value="story" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Câu chuyện</TabsTrigger>
                             </TabsList>
                             <TabsContent value="general" asChild>
-                                <SettingGeneral formik={formikSetting} setIsApply={setIsApply} />
+                                <SettingGeneral formik={formikSetting} setIsApply={setIsApply} isApply={isApply} />
                             </TabsContent>
                             <TabsContent value="product" asChild>
                                 <SettingProduct />
                             </TabsContent>
                             <TabsContent value="story" asChild>
-                                <div className="size-full p-2">
-                                    Cài đặt câu chuyện
-                                </div>
+                                <SettingStory setIsApply={setIsApply} isApply={isApply} />
                             </TabsContent>
                         </Tabs>
 
-                    </div>
-                    <div className="h-20 px-10 flex items-center justify-end gap-4 border-t-2">
-                        <Button onClick={handleInitial} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Thiết lập lại</Button>
-                        <Button onClick={() => {
-                            handleApply();
-                            setIsApply(false);
-                        }} disabled={!isApply} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Áp dụng</Button>
-                        <Button onClick={() => {
-                            formikSetting.handleSubmit();
-                        }} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Lưu</Button>
                     </div>
                 </div>
             </div>

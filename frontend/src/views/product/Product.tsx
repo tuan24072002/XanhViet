@@ -7,10 +7,10 @@ const Product = () => {
     const appState = useAppSelector(state => state.app);
     const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
     const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
-    const [products, setProducts] = useState(appState.item.products);
+    const [products, setProducts] = useState(appState.listProduct);
     useEffect(() => {
-        setProducts(appState.item.products);
-    }, [appState.item.products])
+        setProducts(appState.listProduct);
+    }, [appState.listProduct])
     return (
         <div className="flex flex-col h-full">
             <div className="flex items-center justify-center w-full h-30">
@@ -51,7 +51,7 @@ const Product = () => {
                     {
                         products.map((product) => (
                             <SwiperSlide
-                                key={product.id}
+                                key={product._id}
                                 className="rounded-[8px] w-103 h-[510px] cursor-pointer flex flex-col shrink-0 lg"
                             >
                                 <div className="h-3/4">

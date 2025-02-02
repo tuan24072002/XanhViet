@@ -2,11 +2,13 @@ import { ActionSliceState } from "./state";
 import { commonCreateAsyncThunk } from "./thunk";
 import { createSlice } from "@reduxjs/toolkit";
 import { errorMessage } from "@/utils/util";
-import { AppModel } from "@/model/App.model";
+import { AppModel, ProductModel } from "@/model/App.model";
 import { AppService } from "@/services/App.service";
 
 interface AppState extends ActionSliceState {
   item: AppModel;
+  itemProduct: ProductModel;
+  listProduct: ProductModel[];
   loading: boolean;
   refresh: boolean;
   statusVerify: "idle" | "loading" | "completed" | "failed";
@@ -15,6 +17,8 @@ interface AppState extends ActionSliceState {
 }
 const initialState: AppState = {
   item: AppModel.initial(),
+  itemProduct: ProductModel.initial(),
+  listProduct: [],
   status: "idle",
   statusAction: "idle",
   statusVerify: "idle",
@@ -56,12 +60,35 @@ export const uploadLogo: any = commonCreateAsyncThunk({
   type: "app/uploadLogo",
   action: AppService.uploadLogo,
 });
+export const getProducts: any = commonCreateAsyncThunk({
+  type: "app/getProducts",
+  action: AppService.getProducts,
+});
+export const createProduct: any = commonCreateAsyncThunk({
+  type: "app/createProduct",
+  action: AppService.createProduct,
+});
+export const updateProduct: any = commonCreateAsyncThunk({
+  type: "app/updateProduct",
+  action: AppService.updateProduct,
+});
+export const deleteProduct: any = commonCreateAsyncThunk({
+  type: "app/deleteProduct",
+  action: AppService.deleteProduct,
+});
+export const updateStory: any = commonCreateAsyncThunk({
+  type: "app/updateStory",
+  action: AppService.updateStory,
+});
 export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
     selectItem: (state, action) => {
       state.item = action.payload;
+    },
+    selectItemProduct: (state, action) => {
+      state.itemProduct = action.payload;
     },
     resetActionState: (state) => {
       state.statusAction = "idle";
@@ -91,6 +118,10 @@ export const appSlice = createSlice({
         const item = AppService.itemFromJson(
           action.payload.data !== "" ? action.payload.data.data : {}
         );
+        const listProduct = AppService.listProductFromJson(
+          action.payload.data !== "" ? action.payload.data.data.products : {}
+        );
+        state.listProduct = listProduct;
         state.item = item;
         state.status = "completed";
       })
@@ -198,11 +229,71 @@ export const appSlice = createSlice({
         const error = Object(action.payload);
         state.statusAction = "failed";
         state.error = errorMessage(error);
+      })
+      .addCase(getProducts.fulfilled, (state, action) => {
+        const list = AppService.listProductFromJson(
+          action.payload.data !== "" ? action.payload.data.data : {}
+        );
+        state.listProduct = list;
+        state.status = "completed";
+      })
+      .addCase(getProducts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getProducts.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.status = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(createProduct.fulfilled, (state) => {
+        state.statusAction = "completed";
+      })
+      .addCase(createProduct.pending, (state) => {
+        state.statusAction = "loading";
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusAction = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(updateProduct.fulfilled, (state) => {
+        state.statusAction = "completed";
+      })
+      .addCase(updateProduct.pending, (state) => {
+        state.statusAction = "loading";
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusAction = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(updateStory.fulfilled, (state) => {
+        state.statusAction = "completed";
+      })
+      .addCase(updateStory.pending, (state) => {
+        state.statusAction = "loading";
+      })
+      .addCase(updateStory.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusAction = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.statusAction = "completed";
+      })
+      .addCase(deleteProduct.pending, (state) => {
+        state.statusAction = "loading";
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusAction = "failed";
+        state.error = errorMessage(error);
       });
   },
 });
 export const {
   selectItem,
+  selectItemProduct,
   resetActionState,
   changeAction,
   resetState,

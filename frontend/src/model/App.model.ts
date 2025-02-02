@@ -1,3 +1,33 @@
+class ProductModel {
+  _id: string;
+  name: string;
+  description: string;
+  price: string;
+  imageSrc: string;
+  constructor(
+    _id: string,
+    name: string,
+    description: string,
+    price: string,
+    imageSrc: string
+  ) {
+    this._id = _id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.imageSrc = imageSrc;
+  }
+  static initial() {
+    return {
+      _id: "",
+      name: "",
+      description: "",
+      price: "",
+      imageSrc: "",
+    };
+  }
+}
+
 class AppModel {
   id: string;
   logo: string;
@@ -9,13 +39,8 @@ class AppModel {
   textDescColor: string;
   borderColor: string;
   codeSecurity: string;
-  products: {
-    id: string;
-    name: string;
-    description: string;
-    price: string;
-    imageSrc: string;
-  }[];
+  products: ProductModel[];
+  stories: string;
   constructor(
     id: string,
     logo: string,
@@ -27,13 +52,8 @@ class AppModel {
     textDescColor: string,
     borderColor: string,
     codeSecurity: string,
-    products: {
-      id: string;
-      name: string;
-      description: string;
-      price: string;
-      imageSrc: string;
-    }[]
+    products: ProductModel[],
+    stories: string
   ) {
     this.id = id;
     this.logo = logo;
@@ -46,6 +66,7 @@ class AppModel {
     this.borderColor = borderColor;
     this.codeSecurity = codeSecurity;
     this.products = products;
+    this.stories = stories;
   }
   static initial() {
     return {
@@ -60,7 +81,8 @@ class AppModel {
       borderColor: "",
       codeSecurity: "",
       products: [],
+      stories: "",
     };
   }
 }
-export { AppModel };
+export { AppModel, ProductModel };

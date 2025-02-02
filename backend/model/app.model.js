@@ -62,7 +62,8 @@ const appSchema = new mongoose.Schema(
         codeSecurity: {
             type: String,
         },
-        products: [productSchema]
+        products: [productSchema],
+        stories: String
     },
     {
         timestamps: true

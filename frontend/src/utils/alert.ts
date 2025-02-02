@@ -35,4 +35,23 @@ const processing = (text?: string, isTimer: boolean = true) => {
     },
   });
 };
-export { failed, completed, processing };
+const confirm = (text: string, onConfirm: () => void) => {
+  Swal.fire({
+    title: "Xác nhận",
+    text: text,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Đồng ý",
+    cancelButtonText: "Hủy",
+    customClass: {
+      confirmButton: "bg-main text-white py-2 px-4 rounded hover:bg-blue-600",
+      cancelButton:
+        "bg-gray-300 text-black py-2 px-4 rounded hover:bg-gray-400",
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      onConfirm?.();
+    }
+  });
+};
+export { failed, completed, processing, confirm };

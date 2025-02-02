@@ -208,3 +208,10 @@
 .scroll-hidden::-webkit-scrollbar{
   display: none;
 }
+.jqx-grid-header div,
+.jqx-scrollbar{
+  z-index: 10 !important;
+}
+.jqx-grid-content {
+    z-index: 0;
+}
