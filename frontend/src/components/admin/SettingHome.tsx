@@ -40,7 +40,10 @@ const SettingHome = forwardRef<HTMLDivElement, SettingHomeProps>(({ setIsApply, 
         await dispatch(applySetting());
     }
     const handleInitial = () => {
-        confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => await dispatch(postInit()))
+        confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => {
+            await dispatch(postInit());
+            setIsApply(false);
+        })
     }
     const handleSave = async () => {
         if (banners.some(item => item === '')) {

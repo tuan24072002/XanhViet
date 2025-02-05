@@ -16,7 +16,10 @@ const SettingStory = forwardRef<HTMLDivElement, SettingStoryProps>(({ setIsApply
         await dispatch(applySetting());
     }
     const handleInitial = () => {
-        confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => await dispatch(postInit()))
+        confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => {
+            await dispatch(postInit());
+            setIsApply(false);
+        })
     }
     const handleSave = async () => {
         await dispatch(updateStory({ stories: markdown }));

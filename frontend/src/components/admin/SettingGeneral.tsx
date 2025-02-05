@@ -91,7 +91,10 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
         await dispatch(applySetting());
     }
     const handleInitial = () => {
-        confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => await dispatch(postInit()))
+        confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => {
+            await dispatch(postInit());
+            setIsApply(false);
+        })
     }
     return (
         <div className="flex flex-col h-[calc(100vh-250px)]" ref={ref}>
