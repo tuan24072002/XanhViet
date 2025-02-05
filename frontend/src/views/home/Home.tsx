@@ -21,7 +21,7 @@ const Home = () => {
                     className="h-full w-full"
                 >
                     {
-                        appState.item.banner.map((item, index) => (
+                        appState.item?.banner?.length > 0 && appState.item.banner.map((item, index) => (
                             <SwiperSlide onClick={() => navigate('/product')} key={index}>
                                 <img
                                     src={item}
