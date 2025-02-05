@@ -48,3 +48,18 @@ export const products = [
       "https://image.cocoonvietnam.com/uploads/z4372805386498_3bd533296846158103cd752a124be5a8_f90a56659b.jpg",
   },
 ];
+
+export const homeBanner = [
+  {
+    id: 1,
+    imgBanner: 'https://wisebusiness.edu.vn/wp-content/uploads/2023/04/chien-luoc-marketing-cua-cocoon-thanh-phan.jpg'
+  },
+  {
+    id: 2,
+    imgBanner: 'https://cf.shopee.vn/file/38924b9daade5d897d0bc5ae0e32b4a7'
+  },
+  {
+    id: 3,
+    imgBanner: 'https://file.hstatic.net/200000223113/collection/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg'
+  }
+]

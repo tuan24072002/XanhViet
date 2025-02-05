@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from "react"
-import ProductGrid from "./ProductGrid"
+import { useEffect, useRef, useState, forwardRef } from "react";
+import ProductGrid from "./ProductGrid";
 import JqxGrid from "jqwidgets-scripts/jqwidgets-react-tsx/jqxgrid";
 import ModalProduct from "./ModalProduct";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { completed, failed, processing } from "@/utils/alert";
 import { getSetting, resetActionState } from "@/slice/app.slice";
 
-const SettingProduct = () => {
+const SettingProduct = forwardRef<HTMLDivElement>((_, ref) => {
     const dispatch = useAppDispatch();
     const appState = useAppSelector(state => state.app);
     const [isOpenDialog, setIsOpenDialog] = useState(false);
     const gridRef = useRef<JqxGrid>(null);
+
     useEffect(() => {
         switch (appState.status) {
             case 'failed':
@@ -22,7 +23,8 @@ const SettingProduct = () => {
             case "completed":
                 break;
         }
-    }, [appState.status])
+    }, [appState.status]);
+
     useEffect(() => {
         switch (appState.statusAction) {
             case 'failed':
@@ -40,13 +42,16 @@ const SettingProduct = () => {
                 }, 1000);
                 break;
         }
-    }, [dispatch, appState])
+    }, [dispatch, appState]);
+
     return (
-        <div>
+        <div ref={ref}>
             <ModalProduct isOpenDialog={isOpenDialog} setIsOpenDialog={setIsOpenDialog} />
             <ProductGrid setIsOpenDialog={setIsOpenDialog} gridRef={gridRef} />
         </div>
-    )
-}
+    );
+});
 
-export default SettingProduct
+SettingProduct.displayName = "SettingProduct"; // Để tránh lỗi trong React DevTools
+
+export default SettingProduct;

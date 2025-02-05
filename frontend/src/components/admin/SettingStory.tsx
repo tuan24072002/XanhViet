@@ -2,13 +2,13 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import TextEditor from "./TextEditor"
 import { applySetting, postInit, resetActionState, updateStory } from "@/slice/app.slice";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { completed, confirm, failed, processing } from "@/utils/alert";
 type SettingStoryProps = {
     setIsApply: (e: boolean) => void,
     isApply: boolean
 }
-const SettingStory = ({ setIsApply, isApply }: SettingStoryProps) => {
+const SettingStory = forwardRef<HTMLDivElement, SettingStoryProps>(({ setIsApply, isApply }, ref) => {
     const dispatch = useAppDispatch();
     const appState = useAppSelector(state => state.app)
     const [markdown, setMarkdown] = useState<string>(appState.item.stories);
@@ -37,7 +37,7 @@ const SettingStory = ({ setIsApply, isApply }: SettingStoryProps) => {
         }
     }, [dispatch, appState])
     return (
-        <div className="h-[calc(100vh-250px)] flex flex-col">
+        <div className="h-[calc(100vh-250px)] flex flex-col" ref={ref}>
             <TextEditor markdown={markdown} setMarkdown={setMarkdown} />
             <div className="h-20 px-10 flex items-center justify-end gap-4 border-t-2">
                 <Button onClick={handleInitial} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Thiết lập lại</Button>
@@ -52,6 +52,6 @@ const SettingStory = ({ setIsApply, isApply }: SettingStoryProps) => {
             </div>
         </div>
     )
-}
+});
 
 export default SettingStory

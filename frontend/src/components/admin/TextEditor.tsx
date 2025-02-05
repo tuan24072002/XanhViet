@@ -1,5 +1,5 @@
 import { Bold, Code, Image, Italic, Link, List, ListOrdered, Quote, WrapText } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 const TextEditor = ({ markdown, setMarkdown }: { markdown: string, setMarkdown: (e: string) => void }) => {
@@ -108,7 +108,23 @@ const TextEditor = ({ markdown, setMarkdown }: { markdown: string, setMarkdown: 
         textarea.focus();
         textarea.setSelectionRange(newCursorStart, newCursorEnd);
     };
-
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.ctrlKey) {
+                if (event.key === 'b') {
+                    event.preventDefault();
+                    insertMarkdownSyntax('bold');
+                } else if (event.key === 'i') {
+                    event.preventDefault();
+                    insertMarkdownSyntax('italic');
+                }
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
     return (
         <div className="px-2 py-4 flex-1">
             <div className="mb-4 flex items-center space-x-2 p-2 border border-highlight rounded-lg w-fit absolute right-4 top-4">

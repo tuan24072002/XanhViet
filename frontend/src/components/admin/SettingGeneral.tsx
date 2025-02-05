@@ -2,7 +2,7 @@ import { HuePicker } from "react-color"
 import { Label } from "../ui/label"
 import { FormikProps } from "formik"
 import { AppModel } from "@/model/App.model"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import ClickOutside from "../ClickOutside"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { completed, confirm, failed, processing } from "@/utils/alert"
@@ -13,7 +13,7 @@ type SettingGeneralProps = {
     setIsApply: (e: boolean) => void,
     isApply: boolean
 }
-const SettingGeneral = ({ formik, setIsApply, isApply }: SettingGeneralProps) => {
+const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik, setIsApply, isApply }, ref) => {
     const dispatch = useAppDispatch();
     const appState = useAppSelector(state => state.app);
 
@@ -94,7 +94,7 @@ const SettingGeneral = ({ formik, setIsApply, isApply }: SettingGeneralProps) =>
         confirm('Bạn có chắc muốn thiết lập lại không? Điều này sẽ làm tất cả dữ liệu quay về ban đầu!', async () => await dispatch(postInit()))
     }
     return (
-        <div className="flex flex-col h-[calc(100vh-250px)]">
+        <div className="flex flex-col h-[calc(100vh-250px)]" ref={ref}>
             <div className="size-full p-2 space-y-4 overflow-y-auto pb-20 flex-1">
                 <div className="size-40 rounded-full bg-background mx-auto mb-6">
                     <label htmlFor="file" className="size-full flex items-center justify-center cursor-pointer">
@@ -217,6 +217,6 @@ const SettingGeneral = ({ formik, setIsApply, isApply }: SettingGeneralProps) =>
             </div>
         </div>
     )
-}
+});
 
 export default SettingGeneral

@@ -63,7 +63,14 @@ const appSchema = new mongoose.Schema(
             type: String,
         },
         products: [productSchema],
-        stories: String
+        stories: {
+            type: String,
+            required: true
+        },
+        banner: {
+            type: [String],
+            default: []
+        }
     },
     {
         timestamps: true

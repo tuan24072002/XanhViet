@@ -85,6 +85,11 @@ Giá trị thương hiệu
 The COCOON ORIGINAL VIETNAM believes that beauty products should be cruelty free...  
 
 For more information about Cruelty Free International, Leaping Bunny and Leaping Bunny criteria, please visit [www.crueltyfreeinternational.org](www.crueltyfreeinternational.org).`,
+            banner: [
+                "https://wisebusiness.edu.vn/wp-content/uploads/2023/04/chien-luoc-marketing-cua-cocoon-thanh-phan.jpg",
+                "https://cf.shopee.vn/file/38924b9daade5d897d0bc5ae0e32b4a7",
+                "https://file.hstatic.net/200000223113/collection/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg"
+            ]
         }
         const create = await appModel.create(appData);
         return res.status(200).json({
@@ -394,3 +399,27 @@ export const updateStory = async (req, res) => {
         });
     }
 }
+
+export const updateBanner = async (req, res) => {
+    try {
+        const { banner } = req.body;
+        const updatedUrls = [];
+        for (const item of banner) {
+            if (item.startsWith('data:image')) {
+                const uploadResponse = await cloudinary.uploader.upload(item, {
+                    folder: "XanhViet",
+                });
+                updatedUrls.push(uploadResponse ? uploadResponse.secure_url : "");
+            } else {
+                updatedUrls.push(item);
+            }
+        }
+        await appModel.updateMany(
+            { banner: updatedUrls }
+        );
+        return res.status(200).json({ message: "Cập nhật banner thành công." });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Lỗi server." });
+    }
+};

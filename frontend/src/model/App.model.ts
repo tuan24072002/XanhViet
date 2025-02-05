@@ -41,6 +41,7 @@ class AppModel {
   codeSecurity: string;
   products: ProductModel[];
   stories: string;
+  banner: string[];
   constructor(
     id: string,
     logo: string,
@@ -53,7 +54,8 @@ class AppModel {
     borderColor: string,
     codeSecurity: string,
     products: ProductModel[],
-    stories: string
+    stories: string,
+    banner: string[]
   ) {
     this.id = id;
     this.logo = logo;
@@ -67,6 +69,7 @@ class AppModel {
     this.codeSecurity = codeSecurity;
     this.products = products;
     this.stories = stories;
+    this.banner = banner;
   }
   static initial() {
     return {
@@ -82,6 +85,7 @@ class AppModel {
       codeSecurity: "",
       products: [],
       stories: "",
+      banner: [],
     };
   }
 }

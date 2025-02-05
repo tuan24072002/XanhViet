@@ -25,6 +25,7 @@ export const AppService = {
           imageSrc: product.imageSrc,
         })),
         stories: element.stories,
+        banner: element.banner,
       });
     }
     return list;
@@ -63,6 +64,7 @@ export const AppService = {
         imageSrc: product.imageSrc,
       })),
       stories: data.stories,
+      banner: data.banner,
     };
     return item;
   },
@@ -124,6 +126,10 @@ export const AppService = {
   },
   async updateStory(data: any) {
     const response = await HttpService.doPostRequest(`/app/update-story`, data);
+    return parseCommonHttpResult(response);
+  },
+  async updateBanner(data: any) {
+    const response = await HttpService.doPutRequest(`/app/update-banner`, data);
     return parseCommonHttpResult(response);
   },
 };
