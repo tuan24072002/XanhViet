@@ -26,7 +26,7 @@ const Home = () => {
                                 <img
                                     src={item}
                                     alt={`Slide ${index}`}
-                                    className="lg:object-cover w-full h-full object-fill"
+                                    className="w-full h-full lg:object-fill object-contain"
                                 />
                             </SwiperSlide>
                         ))
