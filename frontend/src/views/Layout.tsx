@@ -12,7 +12,7 @@ const Layout = (props: Props) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [showContact, setShowContact] = useState(false);
     return (
-        <div className="flex flex-col h-screen overflow-hidden relative">
+        <div className="flex flex-col h-[100dvh] overflow-hidden relative">
             <Header />
             <div className="flex-1 overflow-y-auto overflow-x-hidden" ref={containerRef}>
                 {props.children}

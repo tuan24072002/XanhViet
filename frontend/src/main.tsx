@@ -7,7 +7,6 @@ import "swiper/css/pagination"
 import { store } from './app/store.ts'
 import { Provider } from 'react-redux'
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
-import './utils/viewport';
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}> <App /> </Provider>
 )
