@@ -118,7 +118,7 @@ const SettingHome = forwardRef<HTMLDivElement, SettingHomeProps>(({ setIsApply, 
                     <Button onClick={() => {
                         handleSave();
                         setIsApply(true);
-                    }} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Lưu</Button>
+                    }} disabled={isApply} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Lưu</Button>
                 </div>
             </div>
         </div>

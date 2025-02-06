@@ -1,5 +1,5 @@
 import express from "express";
-import { changeSetting, checkCode, createProduct, deleteProduct, getCode, getProducts, getSetting, initData, updateBanner, updateProduct, updateStory, uploadLogo } from "../controllers/app.controller.js";
+import { changeSetting, checkCode, createProduct, deleteProduct, getCode, getProducts, getSetting, initData, updateBanner, updateBannerStory, updateProduct, updateStory, uploadLogo } from "../controllers/app.controller.js";
 const router = express.Router();
 
 router.get('/get-setting', getSetting);
@@ -15,4 +15,5 @@ router.get('/get-product', getProducts);
 router.delete('/delete-product/:_id', deleteProduct);
 router.post('/update-story', updateStory)
 router.put('/update-banner', updateBanner)
+router.put('/update-banner-story', updateBannerStory)
 export default router;

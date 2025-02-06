@@ -1,9 +1,16 @@
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import TextEditor from "./TextEditor"
-import { applySetting, postInit, resetActionState, updateStory } from "@/slice/app.slice";
-import { Button } from "../ui/button";
+import { applySetting, postInit, resetActionState, updateBannerStory, updateStory } from "@/slice/app.slice";
 import { forwardRef, useEffect, useState } from "react";
 import { completed, confirm, failed, processing } from "@/utils/alert";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
+import UploadBannerStory from "./UploadBannerStory";
+
 type SettingStoryProps = {
     setIsApply: (e: boolean) => void,
     isApply: boolean
@@ -11,7 +18,8 @@ type SettingStoryProps = {
 const SettingStory = forwardRef<HTMLDivElement, SettingStoryProps>(({ setIsApply, isApply }, ref) => {
     const dispatch = useAppDispatch();
     const appState = useAppSelector(state => state.app)
-    const [markdown, setMarkdown] = useState<string>(appState.item.stories);
+    const [markdown, setMarkdown] = useState<string>(appState.item.stories.content);
+    const [img, setImg] = useState(appState.item.stories.banner);
     const handleApply = async () => {
         await dispatch(applySetting());
     }
@@ -23,6 +31,9 @@ const SettingStory = forwardRef<HTMLDivElement, SettingStoryProps>(({ setIsApply
     }
     const handleSave = async () => {
         await dispatch(updateStory({ stories: markdown }));
+    }
+    const handleSaveBanner = async () => {
+        await dispatch(updateBannerStory({ banner: img }));
     }
     useEffect(() => {
         switch (appState.statusAction) {
@@ -40,19 +51,24 @@ const SettingStory = forwardRef<HTMLDivElement, SettingStoryProps>(({ setIsApply
         }
     }, [dispatch, appState])
     return (
-        <div className="h-[calc(100vh-250px)] flex flex-col" ref={ref}>
-            <TextEditor markdown={markdown} setMarkdown={setMarkdown} />
-            <div className="h-20 px-10 flex items-center justify-end gap-4 border-t-2">
-                <Button onClick={handleInitial} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Thiết lập lại</Button>
-                <Button onClick={() => {
-                    handleApply();
-                    setIsApply(false);
-                }} disabled={!isApply} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Áp dụng</Button>
-                <Button onClick={() => {
-                    handleSave();
-                    setIsApply(true);
-                }} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Lưu</Button>
+        <div className="h-[calc(100vh-250px)] flex flex-col relative" ref={ref}>
+            <div className="px-2 py-4 flex-1  overflow-y-auto">
+                <Accordion type="single" collapsible className="w-full space-y-2 ">
+                    <AccordionItem value="Content">
+                        <AccordionTrigger className="bg-highlight text-white rounded-lg px-4 cursor-pointer">Content</AccordionTrigger>
+                        <AccordionContent>
+                            <TextEditor markdown={markdown} setMarkdown={setMarkdown} handleApply={handleApply} handleInitial={handleInitial} handleSave={handleSave} isApply={isApply} setIsApply={setIsApply} />
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="Banner">
+                        <AccordionTrigger className="bg-highlight text-white rounded-lg px-4 cursor-pointer">Banner</AccordionTrigger>
+                        <AccordionContent>
+                            <UploadBannerStory handleSaveBanner={handleSaveBanner} handleApply={handleApply} img={img} setImg={setImg} setIsApply={setIsApply} isApply={isApply} />
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </div>
+
         </div>
     )
 });

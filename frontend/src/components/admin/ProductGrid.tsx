@@ -188,7 +188,7 @@ const ProductGrid = ({ gridRef, setIsOpenDialog }: ProductGridProps) => {
     }, [appState.status])
     return (
         <>
-            <div className="h-[calc(100vh-250px)] w-full relative" onClick={handleButtonClick}>
+            <div className="h-[calc(100vh-250px)] w-full relative py-4 px-2" onClick={handleButtonClick}>
                 <JqxGrid
                     ref={gridRef}
                     width={'calc(100%-1px)'}

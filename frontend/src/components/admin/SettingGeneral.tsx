@@ -216,7 +216,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                 }} disabled={!isApply} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Áp dụng</Button>
                 <Button onClick={() => {
                     formik.handleSubmit();
-                }} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Lưu</Button>
+                }} disabled={isApply} className="border-highlight border cursor-pointer bg-white text-text hover:bg-highlight hover:text-white">Lưu</Button>
             </div>
         </div>
     )

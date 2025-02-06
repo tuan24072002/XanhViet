@@ -52,7 +52,9 @@ export const initData = async (req, res) => {
                     "imageSrc": "https://image.cocoonvietnam.com/uploads/z4372805386498_3bd533296846158103cd752a124be5a8_f90a56659b.jpg"
                 }
             ],
-            stories: `# COCOON - Mỹ phẩm thuần chay - cho nét đẹp thuần Việt
+            stories: {
+                banner: "https://cocoonvietnam.com/_nuxt/img/footer-image.5d68be7.jpg",
+                content: `# COCOON - Mỹ phẩm thuần chay - cho nét đẹp thuần Việt
 ## **Ý nghĩa thương hiệu**  
 Cocoon nghĩa là “cái kén”, cái kén như là “ngôi nhà” để ủ ấp, nuôi dưỡng con sâu nhỏ để đến một ngày sẽ hóa thành nàng bướm xinh đẹp và lộng lẫy.  
 Từ ý nghĩa như thế, Cocoon chính là “ngôi nhà” để chăm sóc làn da, mái tóc của người Việt Nam, giúp cho họ trở nên xinh đẹp, hoàn thiện hơn và tỏa sáng theo cách của chính họ.  
@@ -84,7 +86,8 @@ Cocoon tự hào là thương hiệu mỹ phẩm 100% sản xuất tại Việt 
 Giá trị thương hiệu  
 The COCOON ORIGINAL VIETNAM believes that beauty products should be cruelty free...  
 
-For more information about Cruelty Free International, Leaping Bunny and Leaping Bunny criteria, please visit [www.crueltyfreeinternational.org](www.crueltyfreeinternational.org).`,
+For more information about Cruelty Free International, Leaping Bunny and Leaping Bunny criteria, please visit [www.crueltyfreeinternational.org](www.crueltyfreeinternational.org).`
+            },
             banner: [
                 "https://wisebusiness.edu.vn/wp-content/uploads/2023/04/chien-luoc-marketing-cua-cocoon-thanh-phan.jpg",
                 "https://cf.shopee.vn/file/38924b9daade5d897d0bc5ae0e32b4a7",
@@ -384,7 +387,7 @@ export const updateStory = async (req, res) => {
     try {
         const { stories } = req.body;
         const update = await appModel.updateMany({
-            stories
+            'stories.content': stories
         });
         if (update) {
             return res.status(200).json({
@@ -416,6 +419,28 @@ export const updateBanner = async (req, res) => {
         }
         await appModel.updateMany(
             { banner: updatedUrls }
+        );
+        return res.status(200).json({ message: "Cập nhật banner thành công." });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Lỗi server." });
+    }
+};
+
+export const updateBannerStory = async (req, res) => {
+    try {
+        const { banner } = req.body;
+        let updatedUrls = "";
+        if (banner.startsWith('data:image')) {
+            const uploadResponse = await cloudinary.uploader.upload(banner, {
+                folder: "XanhViet",
+            });
+            updatedUrls = uploadResponse ? uploadResponse.secure_url : "";
+        } else {
+            updatedUrls = banner;
+        }
+        await appModel.updateMany(
+            { 'stories.banner': updatedUrls }
         );
         return res.status(200).json({ message: "Cập nhật banner thành công." });
     } catch (error) {

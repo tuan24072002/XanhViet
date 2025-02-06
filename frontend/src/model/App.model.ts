@@ -40,7 +40,10 @@ class AppModel {
   borderColor: string;
   codeSecurity: string;
   products: ProductModel[];
-  stories: string;
+  stories: {
+    banner: string;
+    content: string;
+  };
   banner: string[];
   constructor(
     id: string,
@@ -54,7 +57,10 @@ class AppModel {
     borderColor: string,
     codeSecurity: string,
     products: ProductModel[],
-    stories: string,
+    stories: {
+      banner: string;
+      content: string;
+    },
     banner: string[]
   ) {
     this.id = id;
@@ -84,7 +90,10 @@ class AppModel {
       borderColor: "",
       codeSecurity: "",
       products: [],
-      stories: "",
+      stories: {
+        banner: "",
+        content: "",
+      },
       banner: [],
     };
   }

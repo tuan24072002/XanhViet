@@ -64,8 +64,14 @@ const appSchema = new mongoose.Schema(
         },
         products: [productSchema],
         stories: {
-            type: String,
-            required: true
+            banner: {
+                type: String,
+                required: true
+            },
+            content: {
+                type: String,
+                required: true
+            }
         },
         banner: {
             type: [String],

@@ -152,10 +152,10 @@ const Admin = () => {
                     <div className="flex-1 overflow-hidden">
                         <Tabs defaultValue="general" className="w-full h-full p-2 relative">
                             <TabsList className="w-full justify-start gap-2 h-16 bg-white">
-                                <TabsTrigger value="general" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Cài đặt chung</TabsTrigger>
-                                <TabsTrigger value="home" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Trang chủ</TabsTrigger>
-                                <TabsTrigger value="product" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Sản phẩm</TabsTrigger>
-                                <TabsTrigger value="story" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight">Câu chuyện</TabsTrigger>
+                                <TabsTrigger value="general" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Cài đặt chung</TabsTrigger>
+                                <TabsTrigger value="home" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Trang chủ</TabsTrigger>
+                                <TabsTrigger value="product" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Sản phẩm</TabsTrigger>
+                                <TabsTrigger value="story" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Câu chuyện</TabsTrigger>
                             </TabsList>
                             <TabsContent value="home" asChild>
                                 <SettingHome setIsApply={setIsApply} isApply={isApply} />

@@ -84,7 +84,10 @@ export const updateBanner: any = commonCreateAsyncThunk({
   type: "app/updateBanner",
   action: AppService.updateBanner,
 });
-
+export const updateBannerStory: any = commonCreateAsyncThunk({
+  type: "app/updateBannerStory",
+  action: AppService.updateBannerStory,
+});
 export const appSlice = createSlice({
   name: "app",
   initialState,
@@ -290,6 +293,17 @@ export const appSlice = createSlice({
         state.statusAction = "loading";
       })
       .addCase(updateBanner.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusAction = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(updateBannerStory.fulfilled, (state) => {
+        state.statusAction = "completed";
+      })
+      .addCase(updateBannerStory.pending, (state) => {
+        state.statusAction = "loading";
+      })
+      .addCase(updateBannerStory.rejected, (state, action) => {
         const error = Object(action.payload);
         state.statusAction = "failed";
         state.error = errorMessage(error);

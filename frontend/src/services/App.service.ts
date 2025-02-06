@@ -132,4 +132,11 @@ export const AppService = {
     const response = await HttpService.doPutRequest(`/app/update-banner`, data);
     return parseCommonHttpResult(response);
   },
+  async updateBannerStory(data: any) {
+    const response = await HttpService.doPutRequest(
+      `/app/update-banner-story`,
+      data
+    );
+    return parseCommonHttpResult(response);
+  },
 };
