@@ -53,7 +53,7 @@ const SettingStory = forwardRef<HTMLDivElement, SettingStoryProps>(({ setIsApply
     return (
         <div className="h-[calc(100vh-250px)] flex flex-col relative" ref={ref}>
             <div className="px-2 py-4 flex-1  overflow-y-auto">
-                <Accordion type="single" collapsible className="w-full space-y-2 ">
+                <Accordion type="single" collapsible defaultValue="Content" className="w-full space-y-2">
                     <AccordionItem value="Content">
                         <AccordionTrigger className="bg-highlight text-white rounded-lg px-4 cursor-pointer">Content</AccordionTrigger>
                         <AccordionContent>
