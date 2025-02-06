@@ -1,49 +1,61 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./views/Layout"
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GetCode from "./views/admin/GetCode";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getSetting } from "./slice/app.slice";
 import { failed, processing } from "./utils/alert";
+import { isPhone } from "./utils/util";
 
 const Home = React.lazy(() => import('./views/home/Home'));
 const Story = React.lazy(() => import('./views/story/Story'));
 const Promotion = React.lazy(() => import('./views/promotion/Promotion'));
 const Product = React.lazy(() => import('./views/product/Product'));
 const Admin = React.lazy(() => import('./views/admin/Admin'));
-const pageList = [
-  {
-    path: "/*",
-    element: <Layout children={<Home />} target={'/'}></Layout>
-  },
-  {
-    path: "/promotion",
-    element: <Layout children={<Promotion />} target={'/promotion'}></Layout>
-  },
-  {
-    path: "/story",
-    element: <Layout children={<Story />} target={'/story'}></Layout>
-  },
-  {
-    path: "/story",
-    element: <Layout children={<Story />} target={'/story'}></Layout>
-  },
-  {
-    path: "/product",
-    element: <Layout children={<Product />} target={'/product'}></Layout>
-  },
-  {
-    path: "/admin",
-    element: <Admin />
-  },
-  {
-    path: "/getcode",
-    element: <GetCode />
-  },
-]
+
 function App() {
   const dispatch = useAppDispatch();
   const appState = useAppSelector(state => state.app);
+  const [isPhoneDevice, setIsPhoneDevice] = useState<boolean>(isPhone());
+  useEffect(() => {
+    const handleResize = () => {
+      setIsPhoneDevice(isPhone());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const pageList = [
+    {
+      path: "/*",
+      element: <Layout children={<Home />} target={'/'}></Layout>
+    },
+    {
+      path: "/promotion",
+      element: <Layout children={<Promotion />} target={'/promotion'}></Layout>
+    },
+    {
+      path: "/story",
+      element: <Layout children={<Story />} target={'/story'}></Layout>
+    },
+    {
+      path: "/story",
+      element: <Layout children={<Story />} target={'/story'}></Layout>
+    },
+    {
+      path: "/product",
+      element: <Layout children={<Product />} target={'/product'}></Layout>
+    },
+    {
+      path: "/admin",
+      element: !isPhoneDevice ? <Admin /> : <Layout children={<Home />} target={'/'}></Layout>
+    },
+    {
+      path: "/getcode",
+      element: !isPhoneDevice ? <GetCode /> : <Layout children={<Home />} target={'/'}></Layout>
+    },
+  ]
   useEffect(() => {
     switch (appState.status) {
       case 'failed':
