@@ -1,15 +1,7 @@
-import { getFormErrorMessage, isFormFieldInvalid } from "@/utils/validate";
 import { FormikErrors, useFormik } from "formik";
-import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSeparator,
-    InputOTPSlot,
-} from "@/components/ui/input-otp"
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { changeSetting, checkCode, resetActionStateCodeVerify, setAdminVerify } from "@/slice/app.slice";
+import { changeSetting, resetActionStateCodeVerify, setAdminVerify } from "@/slice/app.slice";
 import { completed, failed, processing } from "@/utils/alert";
 import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -20,29 +12,11 @@ import SettingProduct from "@/components/admin/SettingProduct";
 import SettingStory from "@/components/admin/SettingStory";
 import SettingHome from "@/components/admin/SettingHome";
 
-type AdminProps = {
-    codeSecurity: string
-}
 const Admin = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const appState = useAppSelector(state => state.app);
     const [isApply, setIsApply] = useState(false);
-    const formik = useFormik<AdminProps>({
-        initialValues: {
-            codeSecurity: ""
-        },
-        validate: (data) => {
-            const errors: FormikErrors<AdminProps> = {};
-            if (!data.codeSecurity || data.codeSecurity.length < 6) {
-                errors.codeSecurity = 'Vui lòng nhập mã code để tiếp tục tác vụ này!';
-            }
-            return errors;
-        },
-        onSubmit: (data) => {
-            dispatch(checkCode({ codeSecurity: data.codeSecurity }));
-        }
-    });
     const formikSetting = useFormik<AppModel>({
         initialValues: appState.item,
         validate: (data) => {
@@ -104,40 +78,13 @@ const Admin = () => {
         }
     }, [dispatch, appState])
     useEffect(() => {
-        if (formik.values.codeSecurity.length === 6) {
-            formik.handleSubmit();
+        if (!appState.adminVerify) {
+            navigate('/')
         }
-    }, [formik.values.codeSecurity])
-
+    }, [appState.adminVerify, navigate])
     return (
-        !appState.adminVerify ?
-            <div className="flex items-center justify-center h-screen w-screen">
-                <form onSubmit={formik.handleSubmit} className="w-md flex flex-col justify-center items-center gap-4">
-                    <InputOTP
-                        maxLength={6}
-                        value={formik.values.codeSecurity}
-                        onChange={(value) => formik.setFieldValue('codeSecurity', value)}>
-                        <InputOTPGroup>
-                            <InputOTPSlot index={0} className={cn('size-15', isFormFieldInvalid('codeSecurity', formik) && 'border-red-500')} />
-                            <InputOTPSlot index={1} className={cn('size-15', isFormFieldInvalid('codeSecurity', formik) && 'border-red-500')} />
-                            <InputOTPSlot index={2} className={cn('size-15', isFormFieldInvalid('codeSecurity', formik) && 'border-red-500')} />
-                        </InputOTPGroup>
-                        <InputOTPSeparator />
-                        <InputOTPGroup>
-                            <InputOTPSlot index={3} className={cn('size-15', isFormFieldInvalid('codeSecurity', formik) && 'border-red-500')} />
-                            <InputOTPSlot index={4} className={cn('size-15', isFormFieldInvalid('codeSecurity', formik) && 'border-red-500')} />
-                            <InputOTPSlot index={5} className={cn('size-15', isFormFieldInvalid('codeSecurity', formik) && 'border-red-500')} />
-                        </InputOTPGroup>
-                    </InputOTP>
-                    {
-                        isFormFieldInvalid('codeSecurity', formik) &&
-                        <div className="h-3 flex items-center" >
-                            {getFormErrorMessage("codeSecurity", formik)}
-                        </div>
-                    }
-                </form>
-            </div>
-            : <div className="h-screen w-screen flex items-center justify-center">
+        appState.adminVerify ?
+            <div className="h-screen w-screen flex items-center justify-center">
                 <div className="bg-white/90 w-[95%] h-[90%] rounded-[8px] shadow flex flex-col">
                     <div className="h-20 px-10 flex items-center justify-between border-b-2">
                         <div className="flex items-center relative">
@@ -145,7 +92,6 @@ const Admin = () => {
                             <h2 className="text-2xl font-semibold text-textTitle pl-4">Trang admin</h2>
                         </div>
                         <X className="text-2xl cursor-pointer text-highlight" onClick={() => {
-                            navigate('/')
                             dispatch(setAdminVerify(false))
                         }} />
                     </div>
@@ -170,10 +116,9 @@ const Admin = () => {
                                 <SettingStory setIsApply={setIsApply} isApply={isApply} />
                             </TabsContent>
                         </Tabs>
-
                     </div>
                 </div>
-            </div>
+            </div> : <></>
     )
 }
 

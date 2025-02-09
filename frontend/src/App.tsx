@@ -1,11 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./views/Layout"
 import React, { useEffect, useState } from "react";
-import GetCode from "./views/admin/GetCode";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { getSetting } from "./slice/app.slice";
 import { failed, processing } from "./utils/alert";
 import { isPhone } from "./utils/util";
+import Authentication from "./components/admin/authen/Authentication";
+import Reset2fa from "./views/admin/Reset2fa";
 
 const Home = React.lazy(() => import('./views/home/Home'));
 const Story = React.lazy(() => import('./views/story/Story'));
@@ -53,7 +54,11 @@ function App() {
     },
     {
       path: "/getcode",
-      element: !isPhoneDevice ? <GetCode /> : <Layout children={<Home />} target={'/'}></Layout>
+      element: !isPhoneDevice ? <Authentication /> : <Layout children={<Home />} target={'/'}></Layout>
+    },
+    {
+      path: "/reset-2fa",
+      element: !isPhoneDevice ? <Reset2fa /> : <Layout children={<Home />} target={'/'}></Layout>
     },
   ]
   useEffect(() => {

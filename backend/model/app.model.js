@@ -76,6 +76,18 @@ const appSchema = new mongoose.Schema(
         banner: {
             type: [String],
             default: []
+        },
+        twoFa: {
+            twofa_otp: {
+                type: Boolean,
+                default: false
+            },
+            secret: {
+                type: String,
+            },
+            two_fa_qr_url: {
+                type: String
+            }
         }
     },
     {

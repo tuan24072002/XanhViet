@@ -215,3 +215,13 @@
 .jqx-grid-content {
     z-index: 0;
 }
+
+.contact-admin{
+  text-decoration: none;
+  outline: none;
+  border: none;
+  color: var(--color-highlight);
+  &:hover{
+   text-decoration: underline;
+  }
+}

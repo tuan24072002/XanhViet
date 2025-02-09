@@ -1,11 +1,14 @@
 import cloudinary from "../lib/cloudinary.js";
 import appModel from "../model/app.model.js";
+import speakeasy from 'speakeasy';
+import QRCode from 'qrcode';
+
 export const initData = async (req, res) => {
     try {
         await appModel.deleteMany({});
         const newCode = Math.floor(100000 + Math.random() * 900000).toString();
         const appData = {
-            logo: "https://lzd-img-global.slatic.net/g/p/d60a898dea9a305074407a607843da06.jpg_720x720q80.jpg",
+            logo: "https://res.cloudinary.com/dqbg3vtet/image/upload/v1739033844/LOGO_48_x_48_px_500_x_500_px_1_urbout.png",
             backgroundColor: "#FEFBF4",
             textHeaderColor: "#333",
             textTitleColor: "#333",
@@ -92,7 +95,12 @@ For more information about Cruelty Free International, Leaping Bunny and Leaping
                 "https://wisebusiness.edu.vn/wp-content/uploads/2023/04/chien-luoc-marketing-cua-cocoon-thanh-phan.jpg",
                 "https://cf.shopee.vn/file/38924b9daade5d897d0bc5ae0e32b4a7",
                 "https://file.hstatic.net/200000223113/collection/20210615._head_banner_web__b8093e15a30d434c98f7623b1e48314c.jpg"
-            ]
+            ],
+            twoFa: {
+                twofa_otp: false,
+                secret: "",
+                two_fa_qr_url: ""
+            }
         }
         const create = await appModel.create(appData);
         return res.status(200).json({
@@ -448,3 +456,146 @@ export const updateBannerStory = async (req, res) => {
         return res.status(500).json({ message: "Lỗi server." });
     }
 };
+// export const generate2fa = async (req, res) => {
+//     try {
+//         const { token } = req.body;
+//         if (req.body.secret) {
+//             if (!token) {
+//                 const otpauthUrl = speakeasy.otpauthURL({
+//                     secret: req.body.secret,
+//                     label: encodeURIComponent('xanhviet.onrender.com'),
+//                     issuer: 'xanhviet.onrender.com',
+//                     encoding: 'base32',
+//                     algorithm: 'sha1',
+//                     digits: 6,
+//                     period: 60
+//                 });
+
+//                 QRCode.toDataURL(otpauthUrl, (err, data_url) => {
+//                     return res.json({
+//                         two_fa_qr_url: data_url,
+//                         message: 'Vui lòng nhập mã OTP'
+//                     });
+//                 });
+//             } else {
+//                 const verified = speakeasy.totp.verify({
+//                     secret: req.body.secret,
+//                     token: token,
+//                     encoding: 'base32',
+//                     window: 1
+//                 });
+
+//                 if (verified) {
+//                     return res.json({ message: 'Xác thực OTP thành công!' });
+//                 }
+//                 return res.status(400).json({ message: 'Mã OTP không hợp lệ!' });
+//             }
+//         } else {
+//             const secret = speakeasy.generateSecret({
+//                 name: 'xanhviet.onrender.com',
+//                 length: 20
+//             });
+
+//             QRCode.toDataURL(secret.otpauth_url, (err, data_url) => {
+//                 res.json({
+//                     secret: secret.base32,
+//                     two_fa_qr_url: data_url,
+//                     message: 'Quét QR code để thiết lập 2FA'
+//                 });
+//             });
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: "Lỗi server" });
+//     }
+// }
+export const generate2fa = async (req, res) => {
+    try {
+        const appSetting = await appModel.findOne();
+
+        if (!appSetting) {
+            return res.status(404).json({
+                success: false,
+                message: "AppSetting không tồn tại!"
+            });
+        }
+        if (!appSetting.twoFa.twofa_otp && appSetting.twoFa.secret === '' && appSetting.twoFa.two_fa_qr_url === '') {
+            const secret = speakeasy.generateSecret({
+                name: 'xanhviet.onrender.com',
+                length: 20
+            });
+            QRCode.toDataURL(secret.otpauth_url, async (err, data_url) => {
+                if (err) {
+                    return res.status(500).json({ message: 'Lỗi khi tạo QR code' });
+                }
+                appSetting.twoFa.twofa_otp = true;
+                appSetting.twoFa.secret = secret.base32;
+                appSetting.twoFa.two_fa_qr_url = data_url;
+                await appSetting.save();
+                res.json({
+                    two_fa_qr_url: data_url,
+                    secret: secret.base32,
+                });
+            });
+        } else {
+            return res.json({
+                two_fa_qr_url: appSetting.twoFa.two_fa_qr_url,
+                secret: appSetting.twoFa.secret,
+                twofa_otp: true
+            })
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Lỗi server." });
+    }
+}
+export const verify2fa = async (req, res) => {
+    try {
+        const { token } = req.body;
+        const appSetting = await appModel.findOne();
+
+        if (!appSetting) {
+            return res.status(404).json({
+                success: false,
+                message: "AppSetting không tồn tại!"
+            });
+        }
+        if (!token) {
+            return res.status(400).json({ message: 'Token là bắt buộc' });
+        }
+        const verified = speakeasy.totp.verify({
+            secret: appSetting.twoFa.secret,
+            encoding: 'base32',
+            token: token,
+            window: 1
+        });
+        if (verified) {
+            res.json({ message: 'Xác thực thành công' });
+        } else {
+            res.status(401).json({ message: 'Mã xác thực không hợp lệ' });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Lỗi server." });
+    }
+}
+export const resetQr2fa = async (req, res) => {
+    try {
+        const appSetting = await appModel.findOne();
+
+        if (!appSetting) {
+            return res.status(404).json({
+                success: false,
+                message: "AppSetting không tồn tại!"
+            });
+        }
+        appSetting.twoFa.twofa_otp = false;
+        appSetting.twoFa.secret = "";
+        appSetting.twoFa.two_fa_qr_url = "";
+        await appSetting.save();
+        res.json({ message: 'Đặt lại xác thực 2 lớp thành công!' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Lỗi server." });
+    }
+}

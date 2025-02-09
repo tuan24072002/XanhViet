@@ -26,6 +26,7 @@ export const AppService = {
         })),
         stories: element.stories,
         banner: element.banner,
+        twoFa: element.twoFa,
       });
     }
     return list;
@@ -65,6 +66,7 @@ export const AppService = {
       })),
       stories: data.stories,
       banner: data.banner,
+      twoFa: data.twoFa,
     };
     return item;
   },
@@ -137,6 +139,18 @@ export const AppService = {
       `/app/update-banner-story`,
       data
     );
+    return parseCommonHttpResult(response);
+  },
+  async generate2fa(data: any) {
+    const response = await HttpService.doPostRequest(`/app/generate-2fa`, data);
+    return parseCommonHttpResult(response);
+  },
+  async verify2fa(data: any) {
+    const response = await HttpService.doPostRequest(`/app/verify-2fa`, data);
+    return parseCommonHttpResult(response);
+  },
+  async reset2fa(data: any) {
+    const response = await HttpService.doPostRequest(`/app/reset-2fa`, data);
     return parseCommonHttpResult(response);
   },
 };

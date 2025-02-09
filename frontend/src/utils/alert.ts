@@ -54,4 +54,17 @@ const confirm = (text: string, onConfirm: () => void) => {
     }
   });
 };
-export { failed, completed, processing, confirm };
+interface warningAlertProps {
+  title: string;
+  text: string;
+}
+const warning = (props: warningAlertProps) => {
+  Swal.fire({
+    icon: "warning",
+    title: props.title ?? "Tính năng không thể thay đổi!",
+    // text: props.text ?? "",
+    html: props.text ?? "",
+    showConfirmButton: false,
+  });
+};
+export { failed, completed, processing, confirm, warning };

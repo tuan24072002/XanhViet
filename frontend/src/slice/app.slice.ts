@@ -14,6 +14,9 @@ interface AppState extends ActionSliceState {
   statusVerify: "idle" | "loading" | "completed" | "failed";
   checkCodeSuccessString: string;
   adminVerify: boolean;
+  twofa_otp: boolean;
+  twofa_qr: boolean;
+  twofa_qr_image: string;
 }
 const initialState: AppState = {
   item: AppModel.initial(),
@@ -27,6 +30,9 @@ const initialState: AppState = {
   refresh: false,
   checkCodeSuccessString: "",
   adminVerify: false,
+  twofa_otp: false,
+  twofa_qr: false,
+  twofa_qr_image: "",
 };
 export const getSetting: any = commonCreateAsyncThunk({
   type: "app/getSetting",
@@ -88,10 +94,25 @@ export const updateBannerStory: any = commonCreateAsyncThunk({
   type: "app/updateBannerStory",
   action: AppService.updateBannerStory,
 });
+export const generate2fa: any = commonCreateAsyncThunk({
+  type: "app/generate2fa",
+  action: AppService.generate2fa,
+});
+export const verify2fa: any = commonCreateAsyncThunk({
+  type: "app/verify2fa",
+  action: AppService.verify2fa,
+});
+export const reset2fa: any = commonCreateAsyncThunk({
+  type: "app/reset2fa",
+  action: AppService.reset2fa,
+});
 export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
+    setTwoOtp: (state, action) => {
+      state.twofa_otp = action.payload;
+    },
     selectItem: (state, action) => {
       state.item = action.payload;
     },
@@ -318,6 +339,51 @@ export const appSlice = createSlice({
         const error = Object(action.payload);
         state.statusAction = "failed";
         state.error = errorMessage(error);
+      })
+      .addCase(generate2fa.fulfilled, (state, action) => {
+        if (action.payload.data.twofa_otp) {
+          state.twofa_otp = action.payload.data.twofa_otp;
+        } else if (action.payload.data.two_fa_qr_url) {
+          state.twofa_qr = true;
+          state.twofa_qr_image = action.payload.data.two_fa_qr_url;
+        } else {
+          state.adminVerify = true;
+        }
+        state.status = "completed";
+      })
+      .addCase(generate2fa.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(generate2fa.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.status = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(verify2fa.fulfilled, (state) => {
+        state.adminVerify = true;
+        state.statusVerify = "completed";
+      })
+      .addCase(verify2fa.pending, (state) => {
+        state.statusVerify = "loading";
+      })
+      .addCase(verify2fa.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.statusVerify = "failed";
+        state.error = errorMessage(error);
+      })
+      .addCase(reset2fa.fulfilled, (state) => {
+        state.adminVerify = false;
+        state.twofa_qr = true;
+        state.twofa_otp = false;
+        state.status = "completed";
+      })
+      .addCase(reset2fa.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(reset2fa.rejected, (state, action) => {
+        const error = Object(action.payload);
+        state.status = "failed";
+        state.error = errorMessage(error);
       });
   },
 });
@@ -331,5 +397,6 @@ export const {
   setRefresh,
   setAdminVerify,
   resetActionStateCodeVerify,
+  setTwoOtp,
 } = appSlice.actions;
 export default appSlice.reducer;

@@ -22,16 +22,16 @@ const Layout = (props: Props) => {
             {
                 showContact &&
                 <div className={cn("absolute bottom-[96px] sm:bottom-10 sm:right-10 right-4 transition-all duration-1000 w-64 z-50 flex items-center gap-2", showContact ? 'translate-x-0' : 'translate-x-100')}>
-                    <a href="tel:0906623246" className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
+                    <a href="tel:0587928264" className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
                         <Phone className="text-highlight" />
                     </a>
                     <div className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
-                        <a href="https://www.zalo.com/" target="_blank" className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
+                        <a href="https://zalo.me/0587928264" target="_blank" className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
                             <img src={Assets.Icons.ZaloChat} alt="" />
                         </a>
                     </div>
                     <div className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
-                        <a href="https://www.messenger.com/" target="_blank" className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
+                        <a href="https://www.messenger.com/t/IAm.TuanSeven.Info/" target="_blank" className="bg-white size-15 flex items-center justify-center rounded-full shadow-xl cursor-pointer">
                             <img src={Assets.Icons.MessChat} alt="" />
                         </a>
                     </div>

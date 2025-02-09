@@ -44,7 +44,13 @@ class AppModel {
     banner: string;
     content: string;
   };
+  twoFa: {
+    twofa_otp: boolean;
+    secret: string;
+    two_fa_qr_url: string;
+  };
   banner: string[];
+
   constructor(
     id: string,
     logo: string,
@@ -61,7 +67,12 @@ class AppModel {
       banner: string;
       content: string;
     },
-    banner: string[]
+    banner: string[],
+    twoFa: {
+      twofa_otp: boolean;
+      secret: string;
+      two_fa_qr_url: string;
+    }
   ) {
     this.id = id;
     this.logo = logo;
@@ -76,6 +87,7 @@ class AppModel {
     this.products = products;
     this.stories = stories;
     this.banner = banner;
+    this.twoFa = twoFa;
   }
   static initial() {
     return {
@@ -95,6 +107,11 @@ class AppModel {
         content: "",
       },
       banner: [],
+      twoFa: {
+        twofa_otp: false,
+        secret: "",
+        two_fa_qr_url: "",
+      },
     };
   }
 }
