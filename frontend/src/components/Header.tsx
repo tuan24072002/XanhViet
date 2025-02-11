@@ -61,7 +61,7 @@ const Header = () => {
 
     return (
         <div className="h-[86px] w-screen border-b-2 sm:block hidden border-border">
-            <div className="mx-auto h-full container flex items-center justify-between">
+            <div className="mx-auto h-full container flex items-center justify-between lg:px-6 md:px-4 px-2">
                 <div className="text-lg text-textHeader flex items-center gap-8">
                     <Link to={'/'} className="relative group">
                         Trang chủ
@@ -69,7 +69,7 @@ const Header = () => {
                     </Link>
                     <Link to={'/product'} className="relative group">
                         Sản phẩm
-                        <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-textHeader transition-all duration-500 group-hover:w-full`, location.pathname === '/product' && 'w-full')} />
+                        <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-textHeader transition-all duration-500 group-hover:w-full`, location.pathname.includes('/product') && 'w-full')} />
                     </Link>
                     <Link to={'/story'} className="relative group">
                         Câu chuyện

@@ -14,7 +14,7 @@ const Layout = (props: Props) => {
     return (
         <div className="flex flex-col h-[100dvh] overflow-hidden relative">
             <Header />
-            <div className="flex-1 overflow-y-auto overflow-x-hidden" ref={containerRef}>
+            <div className="flex-1 overflow-y-auto overflow-x-hidden lg:px-6 md:px-4 px-2" ref={containerRef}>
                 {props.children}
             </div>
             <FooterMobile />

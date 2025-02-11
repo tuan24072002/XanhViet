@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Autoplay } from 'swiper/modules';
 import { useAppSelector } from "@/app/hooks";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 const Product = () => {
+    const navigate = useNavigate();
     const appState = useAppSelector(state => state.app);
     const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
     const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
@@ -16,68 +19,82 @@ const Product = () => {
             <div className="flex items-center justify-center w-full h-30">
                 <p className="text-3xl font-bold text-textTitle">Sản phẩm</p>
             </div>
-            <div className="flex relative overflow-hidden group flex-1">
-                <button
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
-                    ref={(e) => setPrevEl(e)}
-                >
-                    <ArrowLeft className="size-8" />
-                </button>
-                <Swiper
-                    centeredSlides={true}
-                    pagination={{
-                        type: 'fraction',
-                    }}
-                    navigation={{ nextEl, prevEl }}
-                    modules={[Navigation, Autoplay]}
-                    autoplay
-                    speed={1000}
-                    loop
-                    breakpoints={{
-                        1024: {
-                            slidesPerView: 3,
-                            spaceBetween: 60
-                        },
-                        768: {
-                            slidesPerView: 2,
-                            spaceBetween: 60
-                        },
-                        0: {
-                            slidesPerView: 1,
-                            spaceBetween: 40
+            <div className="flex items-center justify-center overflow-hidden flex-1">
+                <div className="size-full max-h-[500px] relative group overflow-hidden">
+                    <button
+                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                        ref={(e) => setPrevEl(e)}
+                    >
+                        <ArrowLeft className="size-8" />
+                    </button>
+                    <Swiper
+                        centeredSlides={true}
+                        pagination={{
+                            type: 'fraction',
+                        }}
+                        navigation={{ nextEl, prevEl }}
+                        modules={[Navigation, Autoplay]}
+                        autoplay
+                        speed={1000}
+                        loop
+                        breakpoints={{
+                            1024: {
+                                slidesPerView: 4,
+                                spaceBetween: 60
+                            },
+                            896: {
+                                slidesPerView: 3,
+                                spaceBetween: 60
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 60
+                            },
+                            0: {
+                                slidesPerView: 1,
+                                spaceBetween: 40
+                            }
+                        }}
+                        className="w-full h-full"
+                    >
+                        {
+                            products.map((product, index) => {
+                                return (
+                                    <SwiperSlide
+                                        key={product._id + index}
+                                        className="rounded-[8px] flex flex-col shrink-0 lg border"
+                                    >
+                                        <div className="h-2/3 overflow-hidden">
+                                            <img
+                                                src={product.imageSrc}
+                                                alt={product.name}
+                                                className="w-full h-full object-contain mix-blend-multiply rounded hover:scale-110 transition-all duration-300"
+                                            />
+                                        </div>
+                                        <div className="h-1/6 space-y-2 px-2 pt-2" onClick={() => navigate(`/product/${product._id}`)}>
+                                            <div className="space-y-1">
+                                                <h2 className="font-semibold text-textTitle cursor-pointer">{product.name}</h2>
+                                                <p className="text-textDesc text-sm">{product.description}</p>
+                                            </div>
+                                            <p className="text-sm font-medium text-highlight">{product.price}</p>
+                                        </div>
+                                        <div className="h-1/6 w-full relative">
+                                            <Button className="py-2 px-4 border bg-highlight hover:bg-highlight/80 cursor-pointer text-white w-fit transition-all duration-300 absolute right-2 bottom-2">
+                                                <p className="text-sm">Mua ngay</p>
+                                            </Button>
+                                        </div>
+                                    </SwiperSlide>
+                                )
+                            })
                         }
-                    }}
-                >
-                    {
-                        products.map((product) => (
-                            <SwiperSlide
-                                key={product._id}
-                                className="rounded-[8px] w-103 h-[510px] cursor-pointer flex flex-col shrink-0 lg"
-                            >
-                                <div className="h-3/4">
-                                    <img
-                                        src={product.imageSrc}
-                                        alt={product.name}
-                                        className="w-full h-full object-cover rounded"
-                                    />
-                                </div>
-                                <div className="flex-1 space-y-2 px-2 pt-2">
-                                    <div className="space-y-1">
-                                        <h2 className="font-semibold text-textTitle">{product.name}</h2>
-                                        <p className="text-textDesc text-sm">{product.description}</p>
-                                    </div>
-                                    <p className="text-sm font-medium text-textTitle">{product.price}</p>
-                                </div>
-                            </SwiperSlide>
-                        ))
-                    }
-                </Swiper>
-                <button
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
-                    ref={(e) => setNextEl(e)}
-                >
-                    <ArrowRight className="size-8" />
-                </button>
+                    </Swiper>
+                    <button
+                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                        ref={(e) => setNextEl(e)}
+                    >
+                        <ArrowRight className="size-8" />
+                    </button>
+                </div>
             </div>
         </div>
     )

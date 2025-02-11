@@ -12,6 +12,7 @@ const Home = React.lazy(() => import('./views/home/Home'));
 const Story = React.lazy(() => import('./views/story/Story'));
 const Promotion = React.lazy(() => import('./views/promotion/Promotion'));
 const Product = React.lazy(() => import('./views/product/Product'));
+const ProductDetail = React.lazy(() => import('./views/productDetail/ProductDetail'));
 const Admin = React.lazy(() => import('./views/admin/Admin'));
 
 function App() {
@@ -47,6 +48,10 @@ function App() {
     {
       path: "/product",
       element: <Layout children={<Product />} target={'/product'}></Layout>
+    },
+    {
+      path: "/product/:id",
+      element: <Layout children={<ProductDetail />} target={'/product/:id'}></Layout>
     },
     {
       path: "/admin",
