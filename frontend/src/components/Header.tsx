@@ -156,7 +156,7 @@ const Header = () => {
                     </Dialog>
                 </div>
                 <div className="size-20 flex items-center justify-center">
-                    <img src={appState.item.logo ?? ""} alt="Logo" className="size-full object-cover rounded-full mix-blend-multiply scale-90" />
+                    <img src={appState.item?.logo ?? ""} alt="Logo" className="size-full object-cover rounded-full mix-blend-multiply scale-90" />
                 </div>
             </div>
         </div>

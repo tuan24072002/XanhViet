@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { Phone, X } from "lucide-react"
 import Assets from "@/assets"
 import FooterMobile from "@/components/FooterMobile"
+import { Toaster } from "@/components/ui/sonner"
 type Props = {
     children: JSX.Element
     target: string
@@ -16,6 +17,7 @@ const Layout = (props: Props) => {
             <Header />
             <div className="flex-1 overflow-y-auto overflow-x-hidden lg:px-6 md:px-4 px-2" ref={containerRef}>
                 {props.children}
+                <Toaster />
             </div>
             <FooterMobile />
             <button className={cn("absolute bottom-[96px] sm:bottom-10 sm:right-10 right-4 py-3 px-6 border border-highlight rounded-full bg-white cursor-pointer z-50 hover:bg-highlight hover:text-white shadow transition-all duration-500 text-text", showContact ? 'translate-x-100' : 'translate-x-0')} onClick={() => setShowContact(true)}>Liên hệ</button>

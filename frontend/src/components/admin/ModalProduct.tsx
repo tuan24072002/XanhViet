@@ -124,18 +124,31 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
-                                <Label htmlFor="price" className="text-text">Giá sản phẩm</Label>
+                                <Label htmlFor="name" className="text-text">Tên phụ sản phẩm</Label>
                                 <Input
                                     type="text"
-                                    name="price"
-                                    id="price"
-                                    value={formik.values.price}
-                                    onChange={(e) => formik.setFieldValue('price', e.target.value)}
+                                    name="subName"
+                                    id="subName"
+                                    value={formik.values.subName}
+                                    onChange={(e) => formik.setFieldValue('name', e.target.value)}
                                     disabled={disabledInput}
                                     className="focus-visible:border-highlight"
-                                    placeholder="Nhập giá sản phẩm"
+                                    placeholder="Nhập tên sản phẩm"
                                 />
                             </div>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <Label htmlFor="price" className="text-text">Giá sản phẩm</Label>
+                            <Input
+                                type="text"
+                                name="price"
+                                id="price"
+                                value={formik.values.price}
+                                onChange={(e) => formik.setFieldValue('price', e.target.value)}
+                                disabled={disabledInput}
+                                className="focus-visible:border-highlight"
+                                placeholder="Nhập giá sản phẩm"
+                            />
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="description" className="text-text">Mô tả sản phẩm</Label>

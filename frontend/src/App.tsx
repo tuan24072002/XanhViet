@@ -82,13 +82,13 @@ function App() {
   useEffect(() => {
     dispatch(getSetting());
   }, [])
-  document.documentElement.style.setProperty('--color-background', appState.item.backgroundColor);
-  document.documentElement.style.setProperty('--color-textHeader', appState.item.textHeaderColor);
-  document.documentElement.style.setProperty('--color-highlight', appState.item.highlightColor);
-  document.documentElement.style.setProperty('--color-textTitle', appState.item.textTitleColor);
-  document.documentElement.style.setProperty('--color-border', appState.item.borderColor);
-  document.documentElement.style.setProperty('--color-text', appState.item.textColor);
-  document.documentElement.style.setProperty('--color-textDesc', appState.item.textDescColor);
+  document.documentElement.style.setProperty('--color-background', appState.item?.backgroundColor);
+  document.documentElement.style.setProperty('--color-textHeader', appState.item?.textHeaderColor);
+  document.documentElement.style.setProperty('--color-highlight', appState.item?.highlightColor);
+  document.documentElement.style.setProperty('--color-textTitle', appState.item?.textTitleColor);
+  document.documentElement.style.setProperty('--color-border', appState.item?.borderColor);
+  document.documentElement.style.setProperty('--color-text', appState.item?.textColor);
+  document.documentElement.style.setProperty('--color-textDesc', appState.item?.textDescColor);
   return (
     <BrowserRouter>
       <div className='App'>

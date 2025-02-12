@@ -17,6 +17,9 @@ app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 app.disable("etag");
 app.use('/v1/app', appRoute);
+app.get('/', (req, res) => {
+    return res.send('Hello world')
+})
 const port = process.env.PORT || 1234;
 const __dirname = path.resolve();
 

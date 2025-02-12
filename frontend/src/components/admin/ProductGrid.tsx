@@ -15,6 +15,7 @@ const ProductGrid = ({ gridRef, setIsOpenDialog }: ProductGridProps) => {
             { name: 'index', type: 'number' },
             { name: '_id', type: 'string' },
             { name: 'name', type: 'string' },
+            { name: 'subName', type: 'string' },
             { name: 'description', type: 'string' },
             { name: 'price', type: 'string' },
             { name: 'imageSrc', type: 'string' },
@@ -31,6 +32,9 @@ const ProductGrid = ({ gridRef, setIsOpenDialog }: ProductGridProps) => {
         },
         {
             text: 'Tên sản phẩm', datafield: 'name', width: '20%'
+        },
+        {
+            text: 'Tên phụ', datafield: 'subName', width: '20%'
         },
         {
             text: 'Mô tả', datafield: 'description', width: 'auto'
@@ -117,6 +121,9 @@ const ProductGrid = ({ gridRef, setIsOpenDialog }: ProductGridProps) => {
             },
             {
                 text: 'Tên sản phẩm', datafield: 'name', width: '20%'
+            },
+            {
+                text: 'Tên phụ', datafield: 'subName', width: '20%'
             },
             {
                 text: 'Mô tả', datafield: 'description', width: 'auto'

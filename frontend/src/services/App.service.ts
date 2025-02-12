@@ -20,6 +20,7 @@ export const AppService = {
         products: element.products.map((product: ProductModel) => ({
           _id: product._id,
           name: product.name,
+          subName: product.subName,
           description: product.description,
           price: product.price,
           imageSrc: product.imageSrc,
@@ -38,6 +39,7 @@ export const AppService = {
       list.push({
         _id: element._id,
         name: element.name,
+        subName: element.subName,
         description: element.description,
         price: element.price,
         imageSrc: element.imageSrc,
@@ -60,6 +62,7 @@ export const AppService = {
       products: data.products.map((product: ProductModel) => ({
         _id: product._id,
         name: product.name,
+        subName: product.subName,
         description: product.description,
         price: product.price,
         imageSrc: product.imageSrc,

@@ -58,7 +58,7 @@ const Product = () => {
                         className="w-full h-full"
                     >
                         {
-                            products.map((product, index) => {
+                            products?.length > 0 && products.map((product, index) => {
                                 return (
                                     <SwiperSlide
                                         key={product._id + index}
@@ -74,7 +74,7 @@ const Product = () => {
                                         <div className="h-1/6 space-y-2 px-2 pt-2" onClick={() => navigate(`/product/${product._id}`)}>
                                             <div className="space-y-1">
                                                 <h2 className="font-semibold text-textTitle cursor-pointer">{product.name}</h2>
-                                                <p className="text-textDesc text-sm">{product.description}</p>
+                                                <p className="text-textDesc text-sm">{product.subName}</p>
                                             </div>
                                             <p className="text-sm font-medium text-highlight">{product.price}</p>
                                         </div>

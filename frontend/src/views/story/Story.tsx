@@ -43,12 +43,12 @@ const Story = () => {
                         <h2 className="text-2xl font-semibold text-textTitle">Câu chuyện thương hiệu</h2>
                     </div>
                     <div className="flex-1 flex flex-col text-lg scroll-smooth scroll-hidden overflow-y-auto">
-                        <Markdown className="text-textTitle leading-8">{appState.item.stories.content}</Markdown>
+                        <Markdown className="text-textTitle leading-8">{appState.item?.stories?.content}</Markdown>
                     </div>
                 </div>
                 <div className="grid grid-cols-2 h-[calc(100vh-86px)] overflow-hidden">
                     <div >
-                        <img src={appState.item.stories.banner} className="w-full h-full object-cover" />
+                        <img src={appState.item?.stories?.banner} className="w-full h-full object-cover" />
                     </div>
                     <div className="w-full lg:px-36 md:px-18 sm:px-12 pl-2 flex flex-col">
                         <div className="flex-1">

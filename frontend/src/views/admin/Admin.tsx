@@ -77,48 +77,49 @@ const Admin = () => {
                 break;
         }
     }, [dispatch, appState])
-    useEffect(() => {
-        if (!appState.adminVerify) {
-            navigate('/')
-        }
-    }, [appState.adminVerify, navigate])
+    // useEffect(() => {
+    //     if (!appState.adminVerify) {
+    //         navigate('/')
+    //     }
+    // }, [appState.adminVerify, navigate])
     return (
-        appState.adminVerify ?
-            <div className="h-screen w-screen flex items-center justify-center">
-                <div className="bg-white/90 w-[95%] h-[90%] rounded-[8px] shadow flex flex-col">
-                    <div className="h-20 px-10 flex items-center justify-between border-b-2">
-                        <div className="flex items-center relative">
-                            <div className="bg-highlight w-3 h-full absolute left-0 rounded-full" />
-                            <h2 className="text-2xl font-semibold text-textTitle pl-4">Trang admin</h2>
-                        </div>
-                        <X className="text-2xl cursor-pointer text-highlight" onClick={() => {
-                            dispatch(setAdminVerify(false))
-                        }} />
+        // appState.adminVerify ?
+        <div className="h-screen w-screen flex items-center justify-center">
+            <div className="bg-white/90 w-[95%] h-[90%] rounded-[8px] shadow flex flex-col">
+                <div className="h-20 px-10 flex items-center justify-between border-b-2">
+                    <div className="flex items-center relative">
+                        <div className="bg-highlight w-3 h-full absolute left-0 rounded-full" />
+                        <h2 className="text-2xl font-semibold text-textTitle pl-4">Trang admin</h2>
                     </div>
-                    <div className="flex-1 overflow-hidden">
-                        <Tabs defaultValue="general" className="w-full h-full p-2 relative">
-                            <TabsList className="w-full justify-start gap-2 h-16 bg-white">
-                                <TabsTrigger value="general" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Cài đặt chung</TabsTrigger>
-                                <TabsTrigger value="home" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Trang chủ</TabsTrigger>
-                                <TabsTrigger value="product" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Sản phẩm</TabsTrigger>
-                                <TabsTrigger value="story" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Câu chuyện</TabsTrigger>
-                            </TabsList>
-                            <TabsContent value="home" asChild>
-                                <SettingHome setIsApply={setIsApply} isApply={isApply} />
-                            </TabsContent>
-                            <TabsContent value="general" asChild>
-                                <SettingGeneral formik={formikSetting} setIsApply={setIsApply} isApply={isApply} />
-                            </TabsContent>
-                            <TabsContent value="product" asChild>
-                                <SettingProduct />
-                            </TabsContent>
-                            <TabsContent value="story" asChild>
-                                <SettingStory setIsApply={setIsApply} isApply={isApply} />
-                            </TabsContent>
-                        </Tabs>
-                    </div>
+                    <X className="text-2xl cursor-pointer text-highlight" onClick={() => {
+                        dispatch(setAdminVerify(false))
+                    }} />
                 </div>
-            </div> : <></>
+                <div className="flex-1 overflow-hidden">
+                    <Tabs defaultValue="general" className="w-full h-full p-2 relative">
+                        <TabsList className="w-full justify-start gap-2 h-16 bg-white">
+                            <TabsTrigger value="general" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Cài đặt chung</TabsTrigger>
+                            <TabsTrigger value="home" className="py-4 px-10 max-w-28 data-[state=active]:data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Trang chủ</TabsTrigger>
+                            <TabsTrigger value="product" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Sản phẩm</TabsTrigger>
+                            <TabsTrigger value="story" className="py-4 px-10 max-w-28 data-[state=active]:bg-highlight data-[state=active]:text-white bg-white text-text border border-highlight cursor-pointer">Câu chuyện</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="home" asChild>
+                            <SettingHome setIsApply={setIsApply} isApply={isApply} />
+                        </TabsContent>
+                        <TabsContent value="general" asChild>
+                            <SettingGeneral formik={formikSetting} setIsApply={setIsApply} isApply={isApply} />
+                        </TabsContent>
+                        <TabsContent value="product" asChild>
+                            <SettingProduct />
+                        </TabsContent>
+                        <TabsContent value="story" asChild>
+                            <SettingStory setIsApply={setIsApply} isApply={isApply} />
+                        </TabsContent>
+                    </Tabs>
+                </div>
+            </div>
+        </div>
+        // : <></>
     )
 }
 

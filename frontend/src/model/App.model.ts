@@ -1,18 +1,21 @@
 class ProductModel {
   _id: string;
   name: string;
+  subName: string;
   description: string;
   price: string;
   imageSrc: string;
   constructor(
     _id: string,
     name: string,
+    subName: string,
     description: string,
     price: string,
     imageSrc: string
   ) {
     this._id = _id;
     this.name = name;
+    this.subName = subName;
     this.description = description;
     this.price = price;
     this.imageSrc = imageSrc;
@@ -21,6 +24,7 @@ class ProductModel {
     return {
       _id: "",
       name: "",
+      subName: "",
       description: "",
       price: "",
       imageSrc: "",
