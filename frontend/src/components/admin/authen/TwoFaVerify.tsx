@@ -47,6 +47,7 @@ export default function TwoFaVerify() {
                 :
                 <InputOTP
                     maxLength={6}
+                    autoFocus
                     value={value}
                     onChange={(e) => {
                         setValue(e)

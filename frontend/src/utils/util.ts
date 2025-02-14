@@ -154,3 +154,14 @@ export const validateEmail = (email: string) => {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
 };
+export const parseCurrencyToNumber = (currency: string): number => {
+  //input: 123,000 đ => output: 123000
+  return parseInt(currency?.replace(/[^\d]/g, ""), 10) || 0;
+};
+export const formatNumberToCurrency = (
+  amount: number,
+  unit: string = "đ"
+): string => {
+  //input: 123000 => output: 123,000 đ
+  return amount?.toLocaleString("vi-VN") + ` ${unit}`;
+};

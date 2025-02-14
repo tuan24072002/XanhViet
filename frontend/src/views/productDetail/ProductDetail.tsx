@@ -2,16 +2,61 @@ import { useAppSelector } from "@/app/hooks";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, ShoppingCart, Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 
 const ProductDetail = () => {
     const params = useParams();
+    const navigate = useNavigate();
     const appState = useAppSelector(state => state.app);
     const [products, setProducts] = useState(appState.listProduct);
-    const productDetail = products.find(item => item._id === params.id)
+    const productDetail = products.find(item => item._id === params.id);
+    const handleBuyNow = () => {
+        const productCart = localStorage.getItem('productCart');
+        let arr = productCart ? JSON.parse(productCart) : [];
+
+        const existingProduct = arr.find((item: any) => item._id === productDetail?._id);
+
+        if (existingProduct) {
+            arr = arr.map((item: any) =>
+                item._id === productDetail?._id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+        } else {
+            arr.push({ ...productDetail, quantity: 1 });
+        }
+        localStorage.setItem('productCart', JSON.stringify(arr));
+        window.dispatchEvent(new Event("cartUpdated"));
+        navigate('/cart');
+    };
+    const handleAddCart = () => {
+        if (!productDetail) {
+            toast("Lỗi: Không thể thêm sản phẩm vào giỏ hàng");
+            return;
+        }
+
+        const productCart = localStorage.getItem('productCart');
+        let arr = productCart ? JSON.parse(productCart) : [];
+
+        const existingProduct = arr.find((item: any) => item._id === productDetail._id);
+
+        if (existingProduct) {
+            arr = arr.map((item: any) =>
+                item._id === productDetail._id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+        } else {
+            arr.push({ ...productDetail, quantity: 1 });
+        }
+
+        localStorage.setItem('productCart', JSON.stringify(arr));
+
+        toast("Thêm giỏ hàng thành công", {
+            description: format(new Date(), "EEEE, dd MMMM yyyy 'lúc' h:mm a", { locale: vi }),
+        });
+        window.dispatchEvent(new Event("cartUpdated"));
+    };
+
     useEffect(() => {
         setProducts(appState.listProduct);
     }, [appState.listProduct])
@@ -38,14 +83,14 @@ const ProductDetail = () => {
                     <p className="text-lg tracking-widest font-semibold text-highlight">{productDetail?.price}</p>
                     <div className="md:absolute md:ml-0 ml-auto bottom-0 right-0 flex items-center gap-4">
                         <Button
-                            onClick={() => toast("Thêm giỏ hàng thành công", {
-                                description: format(new Date(), "EEEE, dd MMMM yyyy 'lúc' h:mm a", { locale: vi }),
-                            })}
+                            onClick={handleAddCart}
                             className="border border-highlight bg-highlight/10 text-highlight hover:bg-highlight hover:text-white transition-all duration-300 cursor-pointer">
                             <ShoppingCart />
                             Thêm vào giỏ hàng
                         </Button>
-                        <Button className="border border-transparent bg-highlight text-white hover:bg-highlight/10 hover:text-highlight hover:border-highlight transition-all duration-300 cursor-pointer">
+                        <Button
+                            onClick={handleBuyNow}
+                            className="border border-transparent bg-highlight text-white hover:bg-highlight/10 hover:text-highlight hover:border-highlight transition-all duration-300 cursor-pointer">
                             <ShoppingBag />
                             Mua ngay
                         </Button>

@@ -23,7 +23,10 @@ type ContactProps = {
     email: string,
     question: string,
 }
-const Header = () => {
+type HeaderProps = {
+    count: number
+}
+const Header = ({ count }: HeaderProps) => {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const appState = useAppSelector(state => state.app);
@@ -75,7 +78,6 @@ const Header = () => {
                         Câu chuyện
                         <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-textHeader transition-all duration-500 group-hover:w-full`, location.pathname === '/story' && 'w-full')} />
                     </Link>
-
                     <Dialog open={isOpen} onOpenChange={setIsOpen}>
                         <DialogTrigger asChild>
                             <button className="relative group cursor-pointer border-none outline-none text-textHeader" onClick={() => { setIsOpen(true); formik.resetForm(); }}>
@@ -154,6 +156,15 @@ const Header = () => {
                             </form>
                         </DialogContent>
                     </Dialog>
+                    <Link to={'/cart'} className="relative group">
+                        Giỏ hàng
+                        <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-textHeader transition-all duration-500 group-hover:w-full`, location.pathname === '/cart' && 'w-full')} />
+                        {
+                            count > 0 && <div className="absolute -top-2 -right-2 bg-white p-[1px] rounded-full">
+                                <span className="text-sm size-4 flex items-center justify-center  font-bold text-red-500 select-none">{count < 99 ? count : '+99'}</span>
+                            </div>
+                        }
+                    </Link>
                 </div>
                 <div className="size-20 flex items-center justify-center">
                     <img src={appState.item?.logo ?? ""} alt="Logo" className="size-full object-cover rounded-full mix-blend-multiply scale-90" />

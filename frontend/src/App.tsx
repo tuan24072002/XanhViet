@@ -13,6 +13,9 @@ const Story = React.lazy(() => import('./views/story/Story'));
 const Promotion = React.lazy(() => import('./views/promotion/Promotion'));
 const Product = React.lazy(() => import('./views/product/Product'));
 const ProductDetail = React.lazy(() => import('./views/productDetail/ProductDetail'));
+const Cart = React.lazy(() => import('./views/cart/Cart'));
+const InfoReceive = React.lazy(() => import('./views/cart/InfoReceive'));
+const Success = React.lazy(() => import('./views/cart/Success'));
 const Admin = React.lazy(() => import('./views/admin/Admin'));
 
 function App() {
@@ -52,6 +55,19 @@ function App() {
     {
       path: "/product/:id",
       element: <Layout children={<ProductDetail />} target={'/product/:id'}></Layout>
+    },
+    {
+      path: "/cart",
+      element: <Layout children={<Cart />} target={'/cart'}></Layout>
+    },
+    {
+      path: "/info-receive",
+      element: <Layout children={<InfoReceive />} target={'/info-receive'}></Layout>
+    },
+
+    {
+      path: "/success",
+      element: <Layout children={<Success />} target={'/success'}></Layout>
     },
     {
       path: "/admin",

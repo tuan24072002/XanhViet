@@ -5,6 +5,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import { useAppSelector } from "@/app/hooks";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { ProductModel } from "@/model/App.model";
 const Product = () => {
     const navigate = useNavigate();
     const appState = useAppSelector(state => state.app);
@@ -14,6 +15,25 @@ const Product = () => {
     useEffect(() => {
         setProducts(appState.listProduct);
     }, [appState.listProduct])
+    const handleBuyNow = (product: ProductModel) => {
+        const productCart = localStorage.getItem('productCart');
+        let arr = productCart ? JSON.parse(productCart) : [];
+
+        const existingProduct = arr.find((item: any) => item._id === product._id);
+
+        if (existingProduct) {
+            arr = arr.map((item: any) =>
+                item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+        } else {
+            arr.push({ ...product, quantity: 1 });
+        }
+
+        localStorage.setItem('productCart', JSON.stringify(arr));
+        window.dispatchEvent(new Event("cartUpdated"));
+        navigate('/cart');
+    };
+
     return (
         <div className="flex flex-col h-full">
             <div className="flex items-center justify-center w-full h-30">
@@ -79,7 +99,9 @@ const Product = () => {
                                             <p className="text-sm font-medium text-highlight">{product.price}</p>
                                         </div>
                                         <div className="h-1/6 w-full relative">
-                                            <Button className="py-2 px-4 border bg-highlight hover:bg-highlight/80 cursor-pointer text-white w-fit transition-all duration-300 absolute right-2 bottom-2">
+                                            <Button
+                                                onClick={() => handleBuyNow(product)}
+                                                className="py-2 px-4 border bg-highlight hover:bg-highlight/80 cursor-pointer text-white w-fit transition-all duration-300 absolute right-2 bottom-2">
                                                 <p className="text-sm">Mua ngay</p>
                                             </Button>
                                         </div>
