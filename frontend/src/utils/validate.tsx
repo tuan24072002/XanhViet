@@ -22,7 +22,7 @@ const getFormErrorMessage = (name: string, formik: any) => {
 
   const error = accessNestedField(formik.errors, name);
   return isFormFieldInvalid(name, formik) ? (
-    <span className="text-red-600 text-sm font-semibold">{error}</span>
+    <span className="text-red-600 text-xs font-semibold">{error}</span>
   ) : null;
 };
 

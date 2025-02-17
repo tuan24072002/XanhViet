@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useDropzone } from "react-dropzone"
 import { cn } from "@/lib/utils";
+import { getFormErrorMessage, isFormFieldInvalid } from "@/utils/validate";
 const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
     isOpenDialog: boolean,
     setIsOpenDialog: (e: boolean) => void,
@@ -38,6 +39,9 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
             if (!data.name) {
                 errors.name = 'Vui lòng nhập tên sản phẩm'
             }
+            if (!data.subName) {
+                errors.subName = 'Vui lòng nhập tên phụ sản phẩm'
+            }
             if (!data.price) {
                 errors.price = 'Vui lòng nhập giá sản phẩm'
             }
@@ -50,6 +54,7 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
             const payload = {
                 _id: appState.action !== 'INS' ? data._id : undefined,
                 name: data.name,
+                subName: data.subName,
                 price: data.price,
                 description: data.description,
                 imageSrc: data.imageSrc,
@@ -119,9 +124,12 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                     value={formik.values.name}
                                     onChange={(e) => formik.setFieldValue('name', e.target.value)}
                                     disabled={disabledInput}
-                                    className="focus-visible:border-highlight"
+                                    className={cn(`focus-visible:border-highlight`, isFormFieldInvalid('name', formik) && 'border-red-500')}
                                     placeholder="Nhập tên sản phẩm"
                                 />
+                                {
+                                    isFormFieldInvalid('name', formik) && getFormErrorMessage('name', formik)
+                                }
                             </div>
                             <div className="flex flex-col gap-2">
                                 <Label htmlFor="name" className="text-text">Tên phụ sản phẩm</Label>
@@ -130,11 +138,14 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                     name="subName"
                                     id="subName"
                                     value={formik.values.subName}
-                                    onChange={(e) => formik.setFieldValue('name', e.target.value)}
+                                    onChange={(e) => formik.setFieldValue('subName', e.target.value)}
                                     disabled={disabledInput}
-                                    className="focus-visible:border-highlight"
+                                    className={cn(`focus-visible:border-highlight`, isFormFieldInvalid('subName', formik) && 'border-red-500')}
                                     placeholder="Nhập tên sản phẩm"
                                 />
+                                {
+                                    isFormFieldInvalid('subName', formik) && getFormErrorMessage('subName', formik)
+                                }
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
@@ -146,9 +157,12 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                 value={formik.values.price}
                                 onChange={(e) => formik.setFieldValue('price', e.target.value)}
                                 disabled={disabledInput}
-                                className="focus-visible:border-highlight"
+                                className={cn(`focus-visible:border-highlight`, isFormFieldInvalid('price', formik) && 'border-red-500')}
                                 placeholder="Nhập giá sản phẩm"
                             />
+                            {
+                                isFormFieldInvalid('price', formik) && getFormErrorMessage('price', formik)
+                            }
                         </div>
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="description" className="text-text">Mô tả sản phẩm</Label>
@@ -159,7 +173,7 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                 value={formik.values.description}
                                 onChange={(e) => formik.setFieldValue('description', e.target.value)}
                                 disabled={disabledInput}
-                                className="focus-visible:border-highlight outline-none"
+                                className={cn(`focus-visible:border-highlight outline-none`)}
                                 placeholder="Nhập mô tả sản phẩm"
                             />
                         </div>
@@ -191,6 +205,9 @@ const ModalProduct = ({ isOpenDialog, setIsOpenDialog }: {
                                     <input {...getInputProps} hidden id="file" type="file" value={''} onChange={handleChangeImage} disabled={disabledInput} />
                                 </label>
                             </div>
+                            {
+                                isFormFieldInvalid('imageSrc', formik) && getFormErrorMessage('imageSrc', formik)
+                            }
                         </div>
                     </div>
                 } />
