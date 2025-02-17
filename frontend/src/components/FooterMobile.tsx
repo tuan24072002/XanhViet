@@ -21,21 +21,21 @@ const FooterMobile = () => {
             <div className="mx-auto p-2 h-full container flex items-center gap-2 justify-around">
                 <Link to={'/'} className={cn('flex flex-col items-center justify-center gap-1 h-full w-full text-textHeader', location.pathname === '/' && 'text-highlight')}>
                     <Home />
-                    Trang chủ
+                    <span className="text-sm">Trang chủ</span>
                 </Link>
                 <Link to={'/product'} className={cn('flex flex-col items-center justify-center gap-1 h-full w-full text-textHeader', location.pathname === '/product' && 'text-highlight')}>
                     <SquareChartGantt />
-                    Sản phẩm
+                    <span className="text-sm"> Sản phẩm</span>
                 </Link>
                 <Link to={'/story'} className={cn('flex flex-col items-center justify-center gap-1 h-full w-full text-textHeader', location.pathname === '/story' && 'text-highlight')}>
                     <BookOpenText />
-                    Câu chuyện
+                    <span className="text-sm">Câu chuyện</span>
                 </Link>
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogTrigger asChild>
                         <button className={cn('flex flex-col items-center justify-center gap-1 h-full w-full cursor-pointer text-textHeader', isOpen && 'text-highlight')}>
                             <Phone />
-                            Liên hệ
+                            <span className="text-sm"> Liên hệ</span>
                         </button>
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
