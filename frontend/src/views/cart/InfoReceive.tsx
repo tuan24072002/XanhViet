@@ -186,7 +186,7 @@ function InfoReceive() {
                     <div className='grid grid-cols-2 gap-6'>
                         <Button
                             type='button'
-                            className="w-full text-lg h-12 bg-slate-200 border border-slate-400 text-slate-600 hover:bg-slate-200 cursor-pointer"
+                            className="w-full text-lg h-12 bg-slate-200 border border-slate-400 text-slate-600 hover:bg-slate-200/50 cursor-pointer"
                             onClick={() => navigate('/cart')}
                         >
                             Trở về

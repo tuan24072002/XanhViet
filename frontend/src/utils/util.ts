@@ -165,3 +165,19 @@ export const formatNumberToCurrency = (
   //input: 123000 => output: 123,000 đ
   return amount?.toLocaleString("vi-VN") + ` ${unit}`;
 };
+export const formatVietnamesePhoneNumber = (phone: string) => {
+  phone = phone?.trim();
+  if (phone?.startsWith("+84")) {
+    const digits = phone?.slice(3);
+    const group1 = digits.slice(0, 3);
+    const group2 = digits.slice(3, 6);
+    const group3 = digits.slice(6);
+    return `+84 ${group1} ${group2} ${group3}`;
+  } else if (phone?.startsWith("0")) {
+    const group1 = phone?.slice(1, 4);
+    const group2 = phone?.slice(4, 7);
+    const group3 = phone?.slice(7);
+    return `0${group1} ${group2} ${group3}`;
+  }
+  return phone;
+};

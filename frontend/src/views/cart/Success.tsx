@@ -5,20 +5,20 @@ import confetti from 'canvas-confetti';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { formatNumberToCurrency, parseCurrencyToNumber } from '@/utils/util';
+import { formatNumberToCurrency, formatVietnamesePhoneNumber, parseCurrencyToNumber } from '@/utils/util';
 
 function Success() {
     const navigate = useNavigate();
     const confettiTriggered = useRef(false);
+    const infoReceive = JSON.parse(localStorage.getItem('infoReceive') as string) ?? {}
     const getProductCartFromStorage = () => {
         const storedCart = localStorage.getItem("productCart");
         return storedCart ? JSON.parse(storedCart) : [];
     };
-
     const productCart = getProductCartFromStorage();
-
     const subtotal = productCart.reduce((acc: any, product: any) => acc + parseCurrencyToNumber(product?.price) * product?.quantity, 0);
     const total = subtotal * 1.1;
+    const randomNumber = Math.floor(Math.random() * 900000000) + 100000000;
     useEffect(() => {
         if (!confettiTriggered.current && productCart.length > 0) {
             const duration = 3 * 1000;
@@ -55,7 +55,7 @@ function Success() {
         localStorage.setItem('productCart', JSON.stringify([]))
         localStorage.setItem('infoReceive', JSON.stringify({}))
         window.dispatchEvent(new Event("cartUpdated"));
-    }, []);
+    }, [productCart.length]);
     useEffect(() => {
         if (productCart.length === 0) {
             navigate('/');
@@ -63,8 +63,8 @@ function Success() {
     }, [navigate, productCart.length])
     return (
         <div className="h-full p-8">
-            <div className="max-w-3xl mx-auto pb-8">
-                <Card className="p-8 text-center mb-8">
+            <div className="max-w-3xl mx-auto pb-4">
+                <Card className="p-8 text-center mb-4">
                     <div className="flex justify-center mb-4">
                         <CheckCircle2 className="w-16 h-16 text-primary" />
                     </div>
@@ -74,11 +74,27 @@ function Success() {
                     </p>
                     <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
                         <Package className="w-4 h-4" />
-                        <span>Order #123456789</span>
+                        <span>Đơn hàng #{randomNumber}</span>
                     </div>
                 </Card>
-
-                <Card className="p-6 mb-8">
+                <Card className="p-6 mb-4">
+                    <h2 className="text-xl font-semibold mb-6 text-textTitle">Thông tin người nhận</h2>
+                    <div className="space-y-6">
+                        <div className="flex justify-between">
+                            <span className="text-muted-foreground">Họ và tên</span>
+                            <span className="font-medium text-text">{infoReceive.firstName + ' ' + infoReceive.middleName + ' ' + infoReceive.lastName}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-muted-foreground">Số điện thoại</span>
+                            <span className="font-medium text-text">{formatVietnamesePhoneNumber(infoReceive.phone)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-muted-foreground">Địa chỉ nhận hàng</span>
+                            <span className="font-medium text-text">{infoReceive.address}</span>
+                        </div>
+                    </div>
+                </Card>
+                <Card className="p-6 mb-4">
                     <h2 className="text-xl font-semibold mb-6 text-textTitle">Chi tiết đơn hàng</h2>
                     <div className="space-y-6">
                         {productCart.map((product: any) => (
