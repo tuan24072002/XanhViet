@@ -62,7 +62,7 @@ const Product = () => {
                                         {product.name}
                                     </h3>
                                     <p className="text-text text-sm mb-2 line-clamp-2">
-                                        {product.subName}
+                                        {product.description}
                                     </p>
                                     <p className="text-highlight font-bold text-lg">
                                         {product.price}
