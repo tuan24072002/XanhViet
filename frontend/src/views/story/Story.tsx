@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Mail, MapPin, MapPinHouse, Phone } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
@@ -91,21 +91,31 @@ const Story = () => {
                             </div>
                             <div className="flex flex-col space-y-2">
                                 <h2 className="text-lg font-semibold text-textTitle">Liên hệ</h2>
-                                <div>
+                                <div className="flex items-center gap-2">
+                                    <Phone className="size-4" />
                                     <Link to={'tel:+84906623246'} className="relative group w-fit text-text">
-                                        +84 906623246
+                                        +84 906 623 246
                                         <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-black transition-all duration-500 group-hover:w-full`)} />
                                     </Link>
                                 </div>
-                                <div>
-                                    <Link to={'mailto:abc@gmail.com'} className="relative group w-fit text-text">
-                                        abc@gmail.com
+                                <div className="flex items-center gap-2">
+                                    <Mail className="size-4" />
+                                    <Link to={'mailto:xanhviet6868@gmail.com'} className="relative group w-fit text-text">
+                                        xanhviet6868@gmail.com
                                         <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-black transition-all duration-500 group-hover:w-full`)} />
                                     </Link>
                                 </div>
-                                <div>
-                                    <Link to={'https://www.google.com/maps?q=12 Bến Văn Đồn'} target="_blank" className="relative group w-fit text-text">
-                                        12 Đ. Bến Vân Đồn, Phường 5, Quận 4, Hồ Chí Minh
+                                <div className="flex items-center gap-2">
+                                    <MapPin className="size-4" />
+                                    <Link to={'https://www.google.com/maps?q=148 Đ.Tôn Đản, Phường 8, Quận 4'} target="_blank" className="relative group w-fit text-text">
+                                        148 Đ.Tôn Đản, Phường 8, Quận 4
+                                        <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-black transition-all duration-500 group-hover:w-full`)} />
+                                    </Link>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <MapPinHouse className="size-4" />
+                                    <Link to={'https://www.google.com/maps?q=Tổ 12 KP Hòa Long, Thuận An, Bình Dương'} target="_blank" className="relative group w-fit text-text">
+                                        Tổ 12 KP Hòa Long, Thuận An, Bình Dương
                                         <span className={cn(`absolute left-0 bottom-0 w-0 h-[2px] bg-black transition-all duration-500 group-hover:w-full`)} />
                                     </Link>
                                 </div>
