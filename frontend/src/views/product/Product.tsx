@@ -36,7 +36,7 @@ const Product = () => {
     }
 
     return (
-        <div className="h-full">
+        <div className="h-full lg:px-6 md:px-4 px-2">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
                     {products?.length > 0 && products.map((product) => (

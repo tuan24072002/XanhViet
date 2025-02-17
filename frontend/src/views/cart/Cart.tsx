@@ -74,7 +74,7 @@ function Cart() {
         window.dispatchEvent(new Event("cartUpdated"));
     }, [productCart]);
     return (
-        <div className="h-full overflow-hidden">
+        <div className="h-full overflow-hidden lg:px-6 md:px-4 px-2">
             <div className={`max-w-6xl mx-auto h-full ${productCart.length > 0 && 'pt-10'}`}>
                 {
                     productCart.length > 0 ?

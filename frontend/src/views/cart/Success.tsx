@@ -62,7 +62,7 @@ function Success() {
         }
     }, [navigate, productCart.length])
     return (
-        <div className="h-full p-8">
+        <div className="h-full p-8 lg:px-6 md:px-4 px-2">
             <div className="max-w-3xl mx-auto pb-4">
                 <Card className="p-8 text-center mb-4">
                     <div className="flex justify-center mb-4">

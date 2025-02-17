@@ -62,7 +62,7 @@ const ProductDetail = () => {
     }, [appState.listProduct])
 
     return (
-        <div className="flex flex-col gap-10 pt-6 h-full max-w-6xl mx-auto">
+        <div className="flex flex-col gap-10 pt-6 h-full max-w-6xl mx-auto lg:px-6 md:px-4 px-2">
             <div className="grid md:grid-cols-2 gap-4 w-full md:h-[400px] h-full">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}

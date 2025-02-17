@@ -38,7 +38,7 @@ const Story = () => {
     const appState = useAppSelector(state => state.app);
     return (
         <>
-            <div className="container mx-auto h-full pt-10" >
+            <div className="container mx-auto h-full pt-10 lg:px-6 md:px-4 px-2" >
                 <div className="flex md:flex-row flex-col gap-6 h-[calc(100vh-126px)] pb-6">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}

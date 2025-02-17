@@ -46,7 +46,7 @@ const Layout = (props: Props) => {
     return (
         <div className="flex flex-col h-[100dvh] overflow-hidden relative">
             <Header count={countCart} />
-            <div className="flex-1 overflow-y-auto overflow-x-hidden lg:px-6 md:px-4 px-2" ref={containerRef}>
+            <div className="flex-1 overflow-y-auto overflow-x-hidden" ref={containerRef}>
                 {props.children}
                 <Toaster />
             </div>

@@ -75,7 +75,7 @@ function InfoReceive() {
         }
     }, [navigate, productCart.length])
     return (
-        <div className="h-full p-8">
+        <div className="h-full p-8 lg:px-6 md:px-4 px-2">
             <div className="max-w-4xl mx-auto pb-8">
                 <div className="flex items-center gap-3 mb-8">
                     <InfoIcon className="w-8 h-8 text-primary" />
