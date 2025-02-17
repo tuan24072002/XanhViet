@@ -50,7 +50,7 @@ const Layout = (props: Props) => {
                 {props.children}
                 <Toaster />
             </div>
-            <div className="p-5 w-fit block sm:hidden rounded-full bg-transparent  border border-highlight absolute right-4 bottom-40 cursor-pointer z-20" onClick={() => {
+            <div className="p-5 w-fit block sm:hidden rounded-full bg-transparent  border border-highlight absolute right-4 bottom-28 cursor-pointer z-20" onClick={() => {
                 navigate('/cart');
             }}>
                 <div className="size-full relative">
