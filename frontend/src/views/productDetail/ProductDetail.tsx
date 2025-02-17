@@ -101,7 +101,7 @@ const ProductDetail = () => {
                 <h2 className="text-2xl font-semibold text-textHeader"><span className="text-highlight">{productDetail?.name}</span> – Làn Da Sạch Sâu, Mịn Màng Tươi Mới</h2>
                 {
                     productDetail?.description !== '' ?
-                        <p className="text-lg text-textDesc leading-8">${productDetail?.description}</p>
+                        <p className="text-lg text-textDesc leading-8">{productDetail?.description}</p>
                         : <p className="text-lg text-textDesc leading-8">Làm sạch là bước quan trọng giúp làn da luôn khỏe mạnh và tươi tắn. <span className="text-highlight">{productDetail?.name}</span> với chiết xuất hoa hồng thiên nhiên không chỉ giúp loại bỏ bụi bẩn, bã nhờn và lớp trang điểm cứng đầu, mà còn mang lại cảm giác dịu nhẹ, tươi mát ngay từ lần đầu sử dụng. Công thức không cồn, không gây kích ứng, phù hợp với mọi loại da, kể cả da nhạy cảm.<br />
                             Với khả năng làm sạch sâu mà không làm khô da, sản phẩm giúp cân bằng độ ẩm, se khít lỗ chân lông và mang lại làn da mềm mịn, rạng rỡ. Hương hoa hồng nhẹ nhàng còn tạo cảm giác thư giãn, giúp bạn tận hưởng mỗi lần chăm sóc da như một liệu trình spa ngay tại nhà.</p>
                 }
