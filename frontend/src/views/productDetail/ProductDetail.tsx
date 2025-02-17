@@ -98,7 +98,7 @@ const ProductDetail = () => {
                 </div>
             </div>
             <div className="flex-1 flex flex-col gap-4">
-                <h2 className="text-2xl font-semibold text-textHeader"><span className="text-highlight">{productDetail?.name}</span> – Làn Da Sạch Sâu, Mịn Màng Tươi Mới</h2>
+                <h2 className="text-2xl font-semibold text-textHeader"><span className="text-highlight">*</span> Mô tả</h2>
                 {
                     productDetail?.description !== '' ?
                         <p className="text-lg text-textDesc leading-8">{productDetail?.description}</p>
