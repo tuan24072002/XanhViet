@@ -58,7 +58,7 @@ const Product = () => {
                                 <div
                                     onClick={() => navigate(`/product/${product._id}`)}
                                 >
-                                    <h3 className="font-semibold text-lg text-textTitle mb-1 line-clamp-1">
+                                    <h3 className="font-semibold text-lg text-textTitle mb-1 line-clamp-2">
                                         {product.name}
                                     </h3>
                                     <p className="text-text text-sm mb-2 line-clamp-2">
