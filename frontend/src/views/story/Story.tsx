@@ -46,13 +46,13 @@ const Story = () => {
                         <Markdown className="text-textTitle leading-8">{appState.item?.stories?.content}</Markdown>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 h-[calc(100vh-86px)] overflow-hidden">
-                    <div className="size-full">
-                        <img src={appState.item?.stories?.banner} className="w-full h-full object-fill" />
+                <div className="grid md:grid-cols-2 h-[calc(100vh-86px)]">
+                    <div className="w-full md:h-[calc(100vh-86px)] h-[calc(100vh-400px)]">
+                        <img src={appState.item?.stories?.banner} className="w-full h-full object-cover" />
                     </div>
-                    <div className="w-full lg:px-36 md:px-18 sm:px-12 pl-2 flex flex-col">
+                    <div className="w-full lg:px-36 md:px-18 sm:px-12 pl-2 flex flex-col md:gap-0 gap-10">
                         <div className="flex-1">
-                            <h2 className="md:text-5xl font-semibold py-10 w-full text-textTitle">Đăng ký để nhận thông tin khuyến mãi sớm nhất</h2>
+                            <h2 className="lg:text-4xl md:text-2xl text-xl font-semibold py-10 w-full text-textTitle">Đăng ký để nhận thông tin khuyến mãi sớm nhất</h2>
                             <form onSubmit={formik.handleSubmit} className="text-highlight">
                                 <div className="relative group flex items-center">
                                     <Input
@@ -72,7 +72,7 @@ const Story = () => {
                                 }
                             </form>
                         </div>
-                        <div className="flex flex-col gap-6 h-fit pb-20">
+                        <div className="flex flex-col gap-6 h-fit pb-4">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="flex flex-col space-y-2">
                                     <h2 className="text-lg font-semibold text-textTitle">Sản phẩm</h2>
