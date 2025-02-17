@@ -8,7 +8,7 @@ import Assets from '@/assets';
 import { warning } from '@/utils/alert';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useNavigate } from 'react-router-dom';
-
+import { motion } from "framer-motion"
 function Cart() {
     const navigate = useNavigate();
     const getProductCartFromStorage = () => {
@@ -79,7 +79,11 @@ function Cart() {
                 {
                     productCart.length > 0 ?
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <div className="lg:col-span-2">
+                            <motion.div
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="lg:col-span-2">
                                 <ScrollArea className='lg:h-[calc(100vh-180px)] h-auto'>
                                     <Card className="p-6">
                                         {productCart.map((product: any, index: number) => (
@@ -119,8 +123,11 @@ function Cart() {
                                         ))}
                                     </Card>
                                 </ScrollArea>
-                            </div>
-                            <div className="lg:col-span-1">
+                            </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }} className="lg:col-span-1">
                                 <Card className="p-6">
                                     <h2 className="sm:text-xl text-lg font-semibold mb-6">Chi tiết đơn hàng</h2>
 
@@ -144,7 +151,7 @@ function Cart() {
                                         Thanh toán
                                     </Button>
                                 </Card>
-                            </div>
+                            </motion.div>
                         </div>
                         : <div className='size-full flex flex-col items-center justify-center gap-6'>
                             <img src={Assets.Images.emptyBox3} alt="" className='size-60 mix-blend-multiply' />

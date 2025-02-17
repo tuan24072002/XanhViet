@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-
+import { motion } from "framer-motion"
 const ProductDetail = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -64,24 +64,48 @@ const ProductDetail = () => {
     return (
         <div className="flex flex-col gap-10 pt-6 h-full max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-4 w-full md:h-[400px] h-full">
-                <div className="flex justify-center">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1, delay: 0.1 }}
+                    className="flex justify-center">
                     <div className="w-full h-[400px] bg-white/50 overflow-hidden group rounded-lg border border-highlight">
                         <img src={productDetail?.imageSrc} alt="" className="w-full h-full object-contain group-hover:scale-150 transition-all duration-300" />
                     </div>
-                </div>
+                </motion.div>
                 <div className="flex flex-col gap-4 relative">
-                    <h2 className="lg:text-4xl text-2xl font-semibold text-textTitle">{productDetail?.name}</h2>
-                    <p className="lg:text-lg text-textTitle">{productDetail?.subName}</p>
-                    <div className="flex items-center gap-1">
+                    <motion.h2
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.1 }}
+                        className="lg:text-4xl text-2xl font-semibold text-textTitle">{productDetail?.name}</motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        className="lg:text-lg text-textTitle">{productDetail?.subName}</motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                        className="flex items-center gap-1">
                         <Star className="fill-yellow-500 text-yellow-500" />
                         <Star className="fill-yellow-500 text-yellow-500" />
                         <Star className="fill-yellow-500 text-yellow-500" />
                         <Star className="fill-yellow-500 text-yellow-500" />
                         <Star className="fill-yellow-500 text-yellow-500" />
                         <span>+99 đánh giá</span>
-                    </div>
-                    <p className="text-lg tracking-widest font-semibold text-highlight">{productDetail?.price}</p>
-                    <div className="md:absolute md:ml-0 ml-auto bottom-0 right-0 flex items-center gap-4">
+                    </motion.div>
+                    <motion.p
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.7 }}
+                        className="text-lg tracking-widest font-semibold text-highlight">{productDetail?.price}</motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 1 }}
+                        className="md:absolute md:ml-0 ml-auto bottom-0 right-0 flex items-center gap-4">
                         <Button
                             onClick={handleAddCart}
                             className="border border-highlight bg-highlight/10 text-highlight hover:bg-highlight hover:text-white transition-all duration-300 cursor-pointer">
@@ -94,7 +118,7 @@ const ProductDetail = () => {
                             <ShoppingBag />
                             Mua ngay
                         </Button>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
             <div className="flex-1 flex flex-col gap-4">

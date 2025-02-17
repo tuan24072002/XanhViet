@@ -8,6 +8,7 @@ import { getFormErrorMessage, isFormFieldInvalid } from "@/utils/validate"
 import { validateEmail } from "@/utils/util"
 import { useAppSelector } from "@/app/hooks"
 import Markdown from 'react-markdown'
+import { motion } from "framer-motion"
 type ContactStoryProps = {
     email: string,
 }
@@ -39,12 +40,20 @@ const Story = () => {
         <>
             <div className="container mx-auto h-full pt-10" >
                 <div className="flex md:flex-row flex-col gap-6 h-[calc(100vh-126px)] pb-6">
-                    <div className="md:w-3/12 w-full">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1 }}
+                        className="md:w-3/12 w-full">
                         <h2 className="text-2xl font-semibold text-textTitle">Câu chuyện thương hiệu</h2>
-                    </div>
-                    <div className="flex-1 flex flex-col text-lg scroll-smooth scroll-hidden overflow-y-auto">
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1 }}
+                        className="flex-1 flex flex-col text-lg scroll-smooth scroll-hidden overflow-y-auto">
                         <Markdown className="text-textTitle leading-8">{appState.item?.stories?.content}</Markdown>
-                    </div>
+                    </motion.div>
                 </div>
                 <div className="grid md:grid-cols-2 h-[calc(100vh-86px)]">
                     <div className="w-full md:h-[calc(100vh-86px)] h-[calc(100vh-400px)]">
