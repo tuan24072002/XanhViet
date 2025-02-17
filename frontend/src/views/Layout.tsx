@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, } from "react"
 import Header from "@/components/Header"
-import { cn } from "@/lib/utils"
-import { Phone, ShoppingCartIcon, X } from "lucide-react"
-import Assets from "@/assets"
+import { ShoppingCartIcon } from "lucide-react"
 import FooterMobile from "@/components/FooterMobile"
 import { Toaster } from "@/components/ui/sonner"
 import { useNavigate } from "react-router-dom"
@@ -13,7 +11,7 @@ type Props = {
 const Layout = (props: Props) => {
     const navigate = useNavigate();
     const containerRef = useRef<HTMLDivElement>(null);
-    const [showContact, setShowContact] = useState(false);
+    // const [showContact, setShowContact] = useState(false);
     const [countCart, setCountCart] = useState<number>(() => {
         const stored = localStorage.getItem("productCart");
         try {
@@ -65,7 +63,7 @@ const Layout = (props: Props) => {
                 </div>
             </div>
             <FooterMobile />
-            <button className={cn("absolute bottom-[96px] sm:bottom-10 sm:right-10 right-4 py-3 px-6 border border-highlight rounded-full bg-white cursor-pointer z-50 hover:bg-highlight select-none hover:text-white shadow transition-all duration-500 text-text", showContact ? 'translate-x-100' : 'translate-x-0')} onClick={() => setShowContact(true)}>Liên hệ</button>
+            {/* <button className={cn("absolute bottom-[96px] sm:bottom-10 sm:right-10 right-4 py-3 px-6 border border-highlight rounded-full bg-white cursor-pointer z-50 hover:bg-highlight select-none hover:text-white shadow transition-all duration-500 text-text", showContact ? 'translate-x-100' : 'translate-x-0')} onClick={() => setShowContact(true)}>Liên hệ</button>
             {
                 showContact &&
                 <div className={cn("absolute bottom-[96px] sm:bottom-10 sm:right-10 right-4 transition-all duration-1000 w-64 z-50 flex items-center gap-2", showContact ? 'translate-x-0' : 'translate-x-100')}>
@@ -86,7 +84,7 @@ const Layout = (props: Props) => {
                         <X className="text-highlight" />
                     </button>
                 </div>
-            }
+            } */}
         </div>
     )
 }
