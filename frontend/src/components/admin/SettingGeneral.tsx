@@ -1,4 +1,4 @@
-import { HuePicker } from "react-color"
+import { SketchPicker } from "react-color"
 import { Label } from "../ui/label"
 import { FormikProps } from "formik"
 import { AppModel } from "@/model/App.model"
@@ -113,7 +113,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.textHeaderColor}</p>
                         </div>
                         {openTextHeaderColor && <div className="size-fit" ref={textHeaderColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.textHeaderColor}
                                 onChangeComplete={(color) => formik.setFieldValue('textHeaderColor', color.hex)}
@@ -127,7 +127,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.textTitleColor}</p>
                         </div>
                         {openTextTitleColor && <div className="size-fit" ref={textTitleColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.textTitleColor}
                                 onChangeComplete={(color) => formik.setFieldValue('textTitleColor', color.hex)}
@@ -141,7 +141,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.textDescColor}</p>
                         </div>
                         {openTextDescColor && <div className="size-fit" ref={textDescColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.textDescColor}
                                 onChangeComplete={(color) => formik.setFieldValue('textDescColor', color.hex)}
@@ -155,7 +155,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.textColor}</p>
                         </div>
                         {openTextColor && <div className="size-fit" ref={textColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.textColor}
                                 onChangeComplete={(color) => formik.setFieldValue('textColor', color.hex)}
@@ -171,7 +171,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.backgroundColor}</p>
                         </div>
                         {openBackgroundColor && <div className="size-fit" ref={backgroundColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.backgroundColor}
                                 onChangeComplete={(color) => formik.setFieldValue('backgroundColor', color.hex)}
@@ -185,7 +185,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.borderColor}</p>
                         </div>
                         {openBorderColor && <div className="size-fit" ref={borderColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.borderColor}
                                 onChangeComplete={(color) => formik.setFieldValue('borderColor', color.hex)}
@@ -199,7 +199,7 @@ const SettingGeneral = forwardRef<HTMLDivElement, SettingGeneralProps>(({ formik
                             <p>{formik.values.highlightColor}</p>
                         </div>
                         {openHighlightColor && <div className="size-fit" ref={highlightColorPickRef}>
-                            <HuePicker
+                            <SketchPicker
                                 className="mt-2"
                                 color={formik.values.highlightColor}
                                 onChangeComplete={(color) => formik.setFieldValue('highlightColor', color.hex)}

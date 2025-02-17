@@ -47,8 +47,8 @@ const Story = () => {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 h-[calc(100vh-86px)] overflow-hidden">
-                    <div >
-                        <img src={appState.item?.stories?.banner} className="w-full h-full object-cover" />
+                    <div className="size-full">
+                        <img src={appState.item?.stories?.banner} className="w-full h-full object-fill" />
                     </div>
                     <div className="w-full lg:px-36 md:px-18 sm:px-12 pl-2 flex flex-col">
                         <div className="flex-1">
