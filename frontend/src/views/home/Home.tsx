@@ -37,8 +37,8 @@ const Home = () => {
                         ))
                     }
                 </Swiper>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-highlight/10 backdrop-blur-[2px] z-10" />
-                <div className="absolute top-[100px] left-1/2 -translate-x-1/2 rounded-2xl shadow-highlight w-[90%] max-w-4xl z-20">
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-highlight/10 backdrop-blur-[2px] z-10 lg:block hidden" />
+                <div className="absolute top-[100px] left-1/2 -translate-x-1/2 rounded-2xl shadow-highlight w-[90%] max-w-4xl z-20 lg:block hidden">
                     <div className="bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl p-4">
                         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8 text-highlight">
                             Đăng ký nhận thông tin ưu đãi
