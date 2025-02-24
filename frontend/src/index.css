@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @plugin 'tailwindcss-animate';
 @custom-variant dark (&:is(.dark *));
@@ -14,8 +14,8 @@
   --color-main: #273672;
   --color-hover: #3bc7ff;
   --color-money: #d80027;
-  --color-background: #FEFBF4;
-  --color-highlight:#cd9a54;
+  --color-background: #fefbf4;
+  --color-highlight: #cd9a54;
   --color-foreground: hsl(var(--foreground));
 
   --color-card: hsl(var(--card));
@@ -168,7 +168,6 @@
   }
 }
 
-
 @layer base {
   * {
     @apply border-border;
@@ -178,15 +177,14 @@
   }
 }
 .swiper-button-prev::after,
-.swiper-button-next::after{
+.swiper-button-next::after {
   color: white;
- 
 }
 .swiper-button-prev,
-.swiper-button-next{
- &:hover::after{
-  transition: all 0.3s ease-in-out;
-    background-color:#FEFBF4;
+.swiper-button-next {
+  &:hover::after {
+    transition: all 0.3s ease-in-out;
+    background-color: #fefbf4;
     color: black;
     padding: 0.5rem 1rem;
     border-radius: 8px;
@@ -198,30 +196,39 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color:var(--color-highlight); 
-  border-radius: 4px; 
-}
-*::-webkit-scrollbar-track {
-  background-color: #f0f0f0; 
+  background-color: var(--color-highlight);
   border-radius: 4px;
 }
-.scroll-hidden::-webkit-scrollbar{
+*::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+.scroll-hidden::-webkit-scrollbar {
   display: none;
 }
 .jqx-grid-header div,
-.jqx-scrollbar{
+.jqx-scrollbar {
   z-index: 10 !important;
 }
 .jqx-grid-content {
-    z-index: 0;
+  z-index: 0;
 }
 
-.contact-admin{
+.contact-admin {
   text-decoration: none;
   outline: none;
   border: none;
   color: var(--color-highlight);
-  &:hover{
-   text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
   }
+}
+
+button {
+  cursor: pointer;
+}
+.shadow-highlight {
+  box-shadow: 0px 0px 14px 9px rgba(205, 154, 84, 1);
+  -webkit-box-shadow: 0px 0px 14px 9px rgba(205, 154, 84, 1);
+  -moz-box-shadow: 0px 0px 14px 9px rgba(205, 154, 84, 1);
 }

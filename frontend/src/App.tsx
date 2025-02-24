@@ -34,54 +34,56 @@ function App() {
   const pageList = [
     {
       path: "/*",
-      element: <Layout children={<Home />} target={'/'}></Layout>
+      element: <Layout children={<Home />} target={'/'} title="Xanh Việt" />,
     },
     {
       path: "/promotion",
-      element: <Layout children={<Promotion />} target={'/promotion'}></Layout>
+      element: <Layout children={<Promotion />} target={'/promotion'} title="Khuyến mãi" />,
     },
     {
       path: "/story",
-      element: <Layout children={<Story />} target={'/story'}></Layout>
-    },
-    {
-      path: "/story",
-      element: <Layout children={<Story />} target={'/story'}></Layout>
+      element: <Layout children={<Story />} target={'/story'} title="Câu chuyện" />,
     },
     {
       path: "/product",
-      element: <Layout children={<Product />} target={'/product'}></Layout>
+      element: <Layout children={<Product />} target={'/product'} title="Sản phẩm" />,
     },
     {
       path: "/product/:id",
-      element: <Layout children={<ProductDetail />} target={'/product/:id'}></Layout>
+      element: <Layout children={<ProductDetail />} target={'/product/:id'} title="Sản phẩm" />,
     },
     {
       path: "/cart",
-      element: <Layout children={<Cart />} target={'/cart'}></Layout>
+      element: <Layout children={<Cart />} target={'/cart'} title="Giỏ hàng" />,
     },
     {
       path: "/info-receive",
-      element: <Layout children={<InfoReceive />} target={'/info-receive'}></Layout>
+      element: <Layout children={<InfoReceive />} target={'/info-receive'} title="Thông tin nhận hàng" />,
     },
-
     {
       path: "/success",
-      element: <Layout children={<Success />} target={'/success'}></Layout>
+      element: <Layout children={<Success />} target={'/success'} title="Xanh Việt" />,
     },
     {
       path: "/admin",
-      element: !isPhoneDevice ? <Admin /> : <Layout children={<Home />} target={'/'}></Layout>
+      element: !isPhoneDevice
+        ? <Admin />
+        : <Layout children={<Home />} target={'/'} title="Xanh Việt" />,
     },
     {
       path: "/getcode",
-      element: !isPhoneDevice ? <Authentication /> : <Layout children={<Home />} target={'/'}></Layout>
+      element: !isPhoneDevice
+        ? <Authentication />
+        : <Layout children={<Home />} target={'/'} title="Xanh Việt" />,
     },
     {
       path: "/reset-2fa",
-      element: !isPhoneDevice ? <Reset2fa /> : <Layout children={<Home />} target={'/'}></Layout>
+      element: !isPhoneDevice
+        ? <Reset2fa />
+        : <Layout children={<Home />} target={'/'} title="Xanh Việt" />,
     },
-  ]
+  ];
+
   useEffect(() => {
     switch (appState.status) {
       case 'failed':
