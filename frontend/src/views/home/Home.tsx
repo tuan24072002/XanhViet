@@ -5,15 +5,38 @@ import { useAppSelector } from "@/app/hooks";
 import FloatingLabelInput from "@/components/common/FloatingLabelInput";
 import { Button } from "@/components/ui/button";
 import { completed } from "@/utils/alert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
 const Home = () => {
     const navigate = useNavigate();
     const appState = useAppSelector(state => state.app);
     const [showDialogPromotion, setShowDialogPromotion] = useState(true);
+    const [hiddenPopup, setHiddenPopup] = useState<CheckedState>(localStorage.getItem('hiddenPopup') !== null);
+    const handleClosePopuup = () => {
+        setShowDialogPromotion(false)
+        if (hiddenPopup && !localStorage.getItem('hiddenPopup')) {
+            const nowPlus8 = new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
+            localStorage.setItem('hiddenPopup', String(nowPlus8.getTime()))
+        } else {
+            localStorage.removeItem('hiddenPopup')
+        }
+    }
+    useEffect(() => {
+        const storedTime = localStorage.getItem('hiddenPopup');
+        const now = Date.now();
+        if (now > Number(storedTime)) {
+            localStorage.removeItem('hiddenPopup');
+            setShowDialogPromotion(true);
+            setHiddenPopup(false);
+        } else {
+            setShowDialogPromotion(false);
+            setHiddenPopup(true);
+        }
+    }, [])
     return (
         <div className="h-[calc(100vh-86px)] w-screen overflow-hidden">
             <div className="h-full w-full relative">
@@ -72,13 +95,13 @@ const Home = () => {
                                     </Button>
                                 </div>
                                 <Button
-                                    onClick={() => setShowDialogPromotion(false)}
+                                    onClick={() => handleClosePopuup()}
                                     className="absolute top-2 right-2 bg-transparent hover:bg-transparent text-text hover:text-red-600 border border-black hover:border-red-600 !p-0 size-fit transition-all duration-300">
                                     <X />
                                 </Button>
-                                <div>
-                                    <Checkbox />
-                                    <Label>Ẩn đi trong lần này</Label>
+                                <div className="flex items-center gap-2">
+                                    <Checkbox id="hiddenPopup" checked={hiddenPopup} onCheckedChange={(checked) => setHiddenPopup(checked ?? false)} />
+                                    <Label htmlFor="hiddenPopup" className="cursor-pointer" >Ẩn đi trong 12h</Label>
                                 </div>
                             </div>
                         </div>
